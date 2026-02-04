@@ -1,0 +1,37 @@
+# FastAPI Backend Requirements for FeelFit Medical Analyzer with Gemini AI
+
+# Core Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+
+# HTTP Client
+httpx==0.26.0
+
+# Data Validation
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Logging
+python-json-logger==2.0.7
+
+# CORS
+fastapi-cors==0.0.6
+
+# Development
+pytest==7.4.4
+pytest-asyncio==0.23.3
+black==24.1.0
+flake8==7.0.0
+mypy==1.8.0
+
+# Google Gemini AI (Optional - if using official SDK)
+# google-generativeai==0.3.0
+
+# Alternative AI Options (Optional):
+# openai==1.12.0  # For OpenAI GPT-4 Vision
+# anthropic==0.18.0  # For Claude
+# transformers==4.36.0  # For Hugging Face models
