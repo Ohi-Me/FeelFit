@@ -3,11 +3,11 @@
 
 ## 🎯 Overview
 
-FeelFit is a cutting-edge medical report analyzer that leverages advanced AI technologies (Claude Sonnet 4) to provide comprehensive medical insights. The platform combines Natural Language Processing (NLP) and Computer Vision to analyze medical reports, extract key information, and provide personalized health recommendations along with specialist suggestions based on location.
+FeelFit is a cutting-edge medical report analyzer that leverages advanced AI technologies for Api to provide comprehensive medical insights. The platform combines Natural Language Processing (NLP) and Computer Vision to analyze medical reports, extract key information, and provide personalized health recommendations along with specialist suggestions based on location.
 
 ### 🌟 Key Highlights
 
-- **AI-Powered Analysis**: State-of-the-art Claude Sonnet 4 model
+- **AI-Powered Analysis**: State-of-the-art llm model for Api
 - **Multi-Format Support**: PDF, JPEG, PNG medical reports
 - **Real-Time Processing**: Fast analysis with instant results
 - **Location-Based Doctors**: Find specialists near you
