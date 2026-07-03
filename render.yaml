@@ -1,0 +1,18 @@
+# Render Blueprint — one-click backend deploy.
+# In Render: New → Blueprint → point at this repo. Set GROQ_API_KEY + ALLOWED_ORIGINS
+# (marked sync:false so they are entered securely in the dashboard, never committed).
+services:
+  - type: web
+    name: feelfit-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    plan: free
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false          # e.g. https://your-frontend.vercel.app
+      - key: ENVIRONMENT
+        value: production

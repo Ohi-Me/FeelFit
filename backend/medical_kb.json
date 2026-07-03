@@ -1,0 +1,2166 @@
+{
+ "718-7": {
+  "loinc": "718-7",
+  "short": "Hgb",
+  "canonical": "hemoglobin",
+  "long": "Hemoglobin [Mass/volume] in Blood",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "g/dL",
+  "ranges": {
+   "adult_male": {
+    "low": 13.5,
+    "high": 17.5,
+    "critical_low": 7.0,
+    "critical_high": 20.0
+   },
+   "adult_female": {
+    "low": 12.0,
+    "high": 16.0,
+    "critical_low": 7.0,
+    "critical_high": 20.0
+   },
+   "default": {
+    "low": 12.0,
+    "high": 17.5,
+    "critical_low": 7.0,
+    "critical_high": 20.0
+   }
+  },
+  "aliases": [
+   "hb",
+   "hgb",
+   "haemoglobin",
+   "hemoglobin",
+   "haemoglobin level",
+   "hemoglobin level"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low hemoglobin may suggest anemia. Common causes include iron deficiency, B12/folate deficiency, or chronic disease.",
+  "clinical_note_high": "Elevated hemoglobin may suggest polycythemia or dehydration.",
+  "wellness_focus": [
+   "iron-rich foods",
+   "vitamin C for iron absorption",
+   "sleep quality",
+   "activity pacing"
+  ],
+  "related_tests": [
+   "2276-4",
+   "2132-9",
+   "4544-3"
+  ]
+ },
+ "6690-2": {
+  "loinc": "6690-2",
+  "short": "WBC",
+  "canonical": "white_blood_cells",
+  "long": "Leukocytes [#/volume] in Blood by Automated count",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "10*9/L",
+  "ranges": {
+   "default": {
+    "low": 4.0,
+    "high": 11.0,
+    "critical_low": 2.0,
+    "critical_high": 30.0
+   }
+  },
+  "aliases": [
+   "wbc",
+   "wcc",
+   "leukocytes",
+   "white blood cells",
+   "white blood count",
+   "total wbc",
+   "leucocytes"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low WBC may suggest bone marrow suppression or viral infections.",
+  "clinical_note_high": "Elevated WBC often indicates infection, inflammation, or stress response.",
+  "wellness_focus": [
+   "immune support",
+   "vitamin C",
+   "zinc",
+   "sleep",
+   "hydration"
+  ],
+  "related_tests": [
+   "751-8",
+   "731-0",
+   "742-7"
+  ]
+ },
+ "777-3": {
+  "loinc": "777-3",
+  "short": "Platelets",
+  "canonical": "platelets",
+  "long": "Platelets [#/volume] in Blood by Automated count",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "10*9/L",
+  "ranges": {
+   "default": {
+    "low": 150.0,
+    "high": 400.0,
+    "critical_low": 50.0,
+    "critical_high": 1000.0
+   }
+  },
+  "aliases": [
+   "plt",
+   "platelets",
+   "thrombocytes",
+   "platelet count",
+   "plts"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low platelets may affect clotting ability.",
+  "clinical_note_high": "Elevated platelets can occur with iron deficiency or inflammation.",
+  "wellness_focus": [
+   "anti-inflammatory diet",
+   "vitamin K",
+   "hydration"
+  ],
+  "related_tests": [
+   "718-7",
+   "6690-2"
+  ]
+ },
+ "789-8": {
+  "loinc": "789-8",
+  "short": "RBC",
+  "canonical": "red_blood_cells",
+  "long": "Erythrocytes [#/volume] in Blood by Automated count",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "10*12/L",
+  "ranges": {
+   "adult_male": {
+    "low": 4.5,
+    "high": 5.9,
+    "critical_low": 2.5,
+    "critical_high": 7.0
+   },
+   "adult_female": {
+    "low": 4.0,
+    "high": 5.2,
+    "critical_low": 2.5,
+    "critical_high": 7.0
+   },
+   "default": {
+    "low": 4.0,
+    "high": 5.9,
+    "critical_low": 2.5,
+    "critical_high": 7.0
+   }
+  },
+  "aliases": [
+   "rbc",
+   "red blood cells",
+   "erythrocytes",
+   "red cell count",
+   "rbc count"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low RBC count may indicate anemia or blood loss.",
+  "clinical_note_high": "High RBC may suggest dehydration or polycythemia.",
+  "wellness_focus": [
+   "iron",
+   "B12",
+   "folate",
+   "hydration"
+  ],
+  "related_tests": [
+   "718-7",
+   "786-4",
+   "787-2"
+  ]
+ },
+ "4544-3": {
+  "loinc": "4544-3",
+  "short": "Hematocrit",
+  "canonical": "hematocrit",
+  "long": "Hematocrit [Volume Fraction] of Blood",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "%",
+  "ranges": {
+   "adult_male": {
+    "low": 40.0,
+    "high": 52.0,
+    "critical_low": 20.0,
+    "critical_high": 60.0
+   },
+   "adult_female": {
+    "low": 36.0,
+    "high": 48.0,
+    "critical_low": 20.0,
+    "critical_high": 60.0
+   },
+   "default": {
+    "low": 36.0,
+    "high": 52.0,
+    "critical_low": 20.0,
+    "critical_high": 60.0
+   }
+  },
+  "aliases": [
+   "hct",
+   "pcv",
+   "packed cell volume",
+   "hematocrit",
+   "haematocrit"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low hematocrit suggests anemia.",
+  "clinical_note_high": "Elevated hematocrit may indicate dehydration.",
+  "wellness_focus": [
+   "iron-rich foods",
+   "hydration",
+   "aerobic exercise"
+  ],
+  "related_tests": [
+   "718-7",
+   "789-8"
+  ]
+ },
+ "2345-7": {
+  "loinc": "2345-7",
+  "short": "Glucose",
+  "canonical": "fasting_blood_glucose",
+  "long": "Glucose [Mass/volume] in Serum or Plasma",
+  "category": "Metabolic Panel",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 70.0,
+    "high": 99.0,
+    "critical_low": 40.0,
+    "critical_high": 500.0
+   }
+  },
+  "aliases": [
+   "glucose",
+   "fbs",
+   "fasting blood sugar",
+   "blood sugar",
+   "plasma glucose",
+   "fasting glucose",
+   "blood glucose",
+   "rbs",
+   "random blood sugar"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Low glucose can cause dizziness and shakiness.",
+  "clinical_note_high": "100-125 mg/dL suggests prediabetes range; >=126 suggests diabetes range. Lifestyle changes are first-line.",
+  "wellness_focus": [
+   "low-glycemic diet",
+   "regular exercise",
+   "weight management",
+   "stress reduction",
+   "fiber intake"
+  ],
+  "related_tests": [
+   "4548-4",
+   "27353-2"
+  ]
+ },
+ "4548-4": {
+  "loinc": "4548-4",
+  "short": "HbA1c",
+  "canonical": "glycated_hemoglobin",
+  "long": "Hemoglobin A1c/Hemoglobin.total in Blood",
+  "category": "Diabetes Monitoring",
+  "class": "CHEM",
+  "units": "%",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 5.7,
+    "critical_low": 0.0,
+    "critical_high": 14.0
+   }
+  },
+  "aliases": [
+   "hba1c",
+   "a1c",
+   "glycated hemoglobin",
+   "glycosylated hemoglobin",
+   "hemoglobin a1c",
+   "hb a1c"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Very low HbA1c may indicate hypoglycemia risk.",
+  "clinical_note_high": "5.7-6.4% = prediabetes range; >=6.5% = diabetes range. Reflects 3-month average blood sugar.",
+  "wellness_focus": [
+   "low-glycemic diet",
+   "daily exercise",
+   "weight management",
+   "portion control",
+   "fiber intake"
+  ],
+  "related_tests": [
+   "2345-7"
+  ]
+ },
+ "2160-0": {
+  "loinc": "2160-0",
+  "short": "Creatinine",
+  "canonical": "serum_creatinine",
+  "long": "Creatinine [Mass/volume] in Serum or Plasma",
+  "category": "Kidney Function",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "adult_male": {
+    "low": 0.74,
+    "high": 1.35,
+    "critical_low": 0.1,
+    "critical_high": 10.0
+   },
+   "adult_female": {
+    "low": 0.59,
+    "high": 1.04,
+    "critical_low": 0.1,
+    "critical_high": 10.0
+   },
+   "default": {
+    "low": 0.59,
+    "high": 1.35,
+    "critical_low": 0.1,
+    "critical_high": 10.0
+   }
+  },
+  "aliases": [
+   "creatinine",
+   "creat",
+   "serum creatinine",
+   "s.creatinine",
+   "creatinine serum"
+  ],
+  "specialty": "Nephrologist",
+  "clinical_note_low": "Low creatinine may indicate reduced muscle mass.",
+  "clinical_note_high": "Elevated creatinine may suggest reduced kidney filtration.",
+  "wellness_focus": [
+   "hydration",
+   "protein moderation",
+   "low-sodium diet",
+   "blood pressure control"
+  ],
+  "related_tests": [
+   "3094-0",
+   "3097-3",
+   "48643-1"
+  ]
+ },
+ "3094-0": {
+  "loinc": "3094-0",
+  "short": "BUN",
+  "canonical": "blood_urea_nitrogen",
+  "long": "Urea nitrogen [Mass/volume] in Serum or Plasma",
+  "category": "Kidney Function",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 7.0,
+    "high": 20.0,
+    "critical_low": 2.0,
+    "critical_high": 100.0
+   }
+  },
+  "aliases": [
+   "bun",
+   "urea nitrogen",
+   "blood urea nitrogen",
+   "blood urea",
+   "urea",
+   "serum urea",
+   "urea bun"
+  ],
+  "specialty": "Nephrologist",
+  "clinical_note_low": "Low BUN may suggest low protein intake or liver issues.",
+  "clinical_note_high": "Elevated BUN may indicate dehydration or reduced kidney clearance.",
+  "wellness_focus": [
+   "hydration",
+   "balanced protein intake",
+   "kidney-friendly diet"
+  ],
+  "related_tests": [
+   "2160-0",
+   "3097-3"
+  ]
+ },
+ "2093-3": {
+  "loinc": "2093-3",
+  "short": "Total Chol",
+  "canonical": "total_cholesterol",
+  "long": "Cholesterol [Mass/volume] in Serum or Plasma",
+  "category": "Lipid Panel",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 200.0,
+    "critical_low": 0.0,
+    "critical_high": 500.0
+   }
+  },
+  "aliases": [
+   "cholesterol",
+   "total cholesterol",
+   "tc",
+   "chol",
+   "total chol",
+   "t.cholesterol"
+  ],
+  "specialty": "Cardiologist",
+  "clinical_note_low": "Very low cholesterol is rare.",
+  "clinical_note_high": "200-239 borderline; >=240 high. Lifestyle modifications are first-line.",
+  "wellness_focus": [
+   "heart-healthy diet",
+   "omega-3s",
+   "soluble fiber",
+   "exercise",
+   "weight management"
+  ],
+  "related_tests": [
+   "2085-9",
+   "13457-7",
+   "2571-8"
+  ]
+ },
+ "2085-9": {
+  "loinc": "2085-9",
+  "short": "HDL Chol",
+  "canonical": "hdl_cholesterol",
+  "long": "Cholesterol in HDL [Mass/volume] in Serum or Plasma",
+  "category": "Lipid Panel",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "adult_male": {
+    "low": 40.0,
+    "high": 999.0,
+    "critical_low": 20.0,
+    "critical_high": 999.0
+   },
+   "adult_female": {
+    "low": 50.0,
+    "high": 999.0,
+    "critical_low": 20.0,
+    "critical_high": 999.0
+   },
+   "default": {
+    "low": 40.0,
+    "high": 999.0,
+    "critical_low": 20.0,
+    "critical_high": 999.0
+   }
+  },
+  "aliases": [
+   "hdl",
+   "hdl cholesterol",
+   "hdl-c",
+   "good cholesterol",
+   "high density lipoprotein",
+   "hdlc"
+  ],
+  "specialty": "Cardiologist",
+  "clinical_note_low": "Low HDL is a cardiovascular risk factor. Exercise and healthy fats help raise it.",
+  "clinical_note_high": "High HDL is generally favorable for heart health.",
+  "wellness_focus": [
+   "aerobic exercise",
+   "healthy fats",
+   "avoid smoking",
+   "weight management"
+  ],
+  "related_tests": [
+   "2093-3",
+   "13457-7"
+  ]
+ },
+ "13457-7": {
+  "loinc": "13457-7",
+  "short": "LDL Chol",
+  "canonical": "ldl_cholesterol",
+  "long": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by calculation",
+  "category": "Lipid Panel",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 100.0,
+    "critical_low": 0.0,
+    "critical_high": 300.0
+   }
+  },
+  "aliases": [
+   "ldl",
+   "ldl cholesterol",
+   "ldl-c",
+   "bad cholesterol",
+   "low density lipoprotein",
+   "ldlc"
+  ],
+  "specialty": "Cardiologist",
+  "clinical_note_low": "Very low LDL is rarely a concern.",
+  "clinical_note_high": "100-129 near optimal; 130-159 borderline; >=160 high. Diet and exercise are primary interventions.",
+  "wellness_focus": [
+   "soluble fiber",
+   "reduce saturated fat",
+   "exercise",
+   "weight loss"
+  ],
+  "related_tests": [
+   "2093-3",
+   "2085-9",
+   "2571-8"
+  ]
+ },
+ "2571-8": {
+  "loinc": "2571-8",
+  "short": "Triglycerides",
+  "canonical": "triglycerides",
+  "long": "Triglyceride [Mass/volume] in Serum or Plasma",
+  "category": "Lipid Panel",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 150.0,
+    "critical_low": 0.0,
+    "critical_high": 1000.0
+   }
+  },
+  "aliases": [
+   "triglycerides",
+   "tg",
+   "trigs",
+   "trigl",
+   "trig",
+   "triglyceride"
+  ],
+  "specialty": "Cardiologist",
+  "clinical_note_low": "Very low triglycerides are generally not a concern.",
+  "clinical_note_high": "150-199 borderline; 200-499 high; >=500 very high. Refined carbs and alcohol are major contributors.",
+  "wellness_focus": [
+   "reduce sugar",
+   "limit alcohol",
+   "omega-3s",
+   "exercise",
+   "weight management"
+  ],
+  "related_tests": [
+   "2093-3",
+   "2085-9"
+  ]
+ },
+ "1742-6": {
+  "loinc": "1742-6",
+  "short": "ALT",
+  "canonical": "alanine_aminotransferase",
+  "long": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "adult_male": {
+    "low": 0.0,
+    "high": 56.0,
+    "critical_low": 0.0,
+    "critical_high": 500.0
+   },
+   "adult_female": {
+    "low": 0.0,
+    "high": 45.0,
+    "critical_low": 0.0,
+    "critical_high": 500.0
+   },
+   "default": {
+    "low": 0.0,
+    "high": 56.0,
+    "critical_low": 0.0,
+    "critical_high": 500.0
+   }
+  },
+  "aliases": [
+   "alt",
+   "sgpt",
+   "alanine aminotransferase",
+   "alanine transaminase",
+   "alt/sgpt",
+   "serum glutamate pyruvate transaminase"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low ALT has no clinical significance.",
+  "clinical_note_high": "Elevated ALT may indicate liver stress. Alcohol, medications, fatty liver, and vigorous exercise can affect this.",
+  "wellness_focus": [
+   "limit alcohol",
+   "liver-supportive diet",
+   "weight management"
+  ],
+  "related_tests": [
+   "1920-8",
+   "6768-6",
+   "1975-2"
+  ]
+ },
+ "1920-8": {
+  "loinc": "1920-8",
+  "short": "AST",
+  "canonical": "aspartate_aminotransferase",
+  "long": "Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 40.0,
+    "critical_low": 0.0,
+    "critical_high": 500.0
+   }
+  },
+  "aliases": [
+   "ast",
+   "sgot",
+   "aspartate aminotransferase",
+   "aspartate transaminase",
+   "ast/sgot",
+   "serum glutamic oxaloacetic transaminase"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low AST has no significance.",
+  "clinical_note_high": "Elevated AST can indicate liver or muscle stress. Exercise can temporarily raise this.",
+  "wellness_focus": [
+   "limit alcohol",
+   "healthy weight",
+   "liver-supportive foods"
+  ],
+  "related_tests": [
+   "1742-6",
+   "6768-6"
+  ]
+ },
+ "6768-6": {
+  "loinc": "6768-6",
+  "short": "ALP",
+  "canonical": "alkaline_phosphatase",
+  "long": "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "default": {
+    "low": 44.0,
+    "high": 147.0,
+    "critical_low": 10.0,
+    "critical_high": 1000.0
+   }
+  },
+  "aliases": [
+   "alp",
+   "alk phos",
+   "alkaline phosphatase",
+   "alkphos",
+   "alk phosphatase"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low ALP is rarely significant.",
+  "clinical_note_high": "Elevated ALP may relate to liver, bone, or bile duct issues.",
+  "wellness_focus": [
+   "vitamin D",
+   "calcium",
+   "limit alcohol"
+  ],
+  "related_tests": [
+   "1742-6",
+   "1920-8",
+   "1975-2"
+  ]
+ },
+ "1975-2": {
+  "loinc": "1975-2",
+  "short": "Bilirubin",
+  "canonical": "total_bilirubin",
+  "long": "Bilirubin.total [Mass/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 1.2,
+    "critical_low": 0.0,
+    "critical_high": 15.0
+   }
+  },
+  "aliases": [
+   "bilirubin",
+   "total bilirubin",
+   "tbil",
+   "t.bilirubin",
+   "bilirubin total",
+   "bil"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low bilirubin has no significance.",
+  "clinical_note_high": "Elevated bilirubin can cause jaundice. May relate to liver function or RBC breakdown.",
+  "wellness_focus": [
+   "hydration",
+   "limit alcohol",
+   "liver-friendly diet"
+  ],
+  "related_tests": [
+   "1742-6",
+   "1920-8"
+  ]
+ },
+ "3016-3": {
+  "loinc": "3016-3",
+  "short": "TSH",
+  "canonical": "thyroid_stimulating_hormone",
+  "long": "Thyrotropin [Units/volume] in Serum or Plasma",
+  "category": "Thyroid Function",
+  "class": "CHEM",
+  "units": "mIU/L",
+  "ranges": {
+   "default": {
+    "low": 0.4,
+    "high": 4.0,
+    "critical_low": 0.01,
+    "critical_high": 100.0
+   },
+   "pregnancy": {
+    "low": 0.1,
+    "high": 2.5,
+    "critical_low": 0.01,
+    "critical_high": 10.0
+   }
+  },
+  "aliases": [
+   "tsh",
+   "thyroid stimulating hormone",
+   "thyrotropin",
+   "thyroid function",
+   "thyroid",
+   "tsh level",
+   "thyroid hormone"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Low TSH may suggest overactive thyroid. Symptoms may include rapid heartbeat and unintended weight loss.",
+  "clinical_note_high": "High TSH often suggests underactive thyroid. Symptoms may include fatigue, weight gain, cold sensitivity.",
+  "wellness_focus": [
+   "iodine-rich foods",
+   "selenium",
+   "zinc",
+   "stress management",
+   "sleep optimization"
+  ],
+  "related_tests": [
+   "3024-7"
+  ]
+ },
+ "3024-7": {
+  "loinc": "3024-7",
+  "short": "Free T4",
+  "canonical": "free_thyroxine",
+  "long": "Thyroxine (T4) free [Mass/volume] in Serum or Plasma",
+  "category": "Thyroid Function",
+  "class": "CHEM",
+  "units": "ng/dL",
+  "ranges": {
+   "default": {
+    "low": 0.8,
+    "high": 1.8,
+    "critical_low": 0.1,
+    "critical_high": 6.0
+   }
+  },
+  "aliases": [
+   "free t4",
+   "ft4",
+   "thyroxine free",
+   "t4 free",
+   "free thyroxine",
+   "t4",
+   "freeT4"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Low free T4 with high TSH suggests underactive thyroid.",
+  "clinical_note_high": "High free T4 with low TSH suggests overactive thyroid.",
+  "wellness_focus": [
+   "iodine",
+   "selenium",
+   "stress management"
+  ],
+  "related_tests": [
+   "3016-3"
+  ]
+ },
+ "2951-2": {
+  "loinc": "2951-2",
+  "short": "Sodium",
+  "canonical": "serum_sodium",
+  "long": "Sodium [Moles/volume] in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mmol/L",
+  "ranges": {
+   "default": {
+    "low": 136.0,
+    "high": 145.0,
+    "critical_low": 120.0,
+    "critical_high": 160.0
+   }
+  },
+  "aliases": [
+   "sodium",
+   "na",
+   "serum sodium",
+   "sodium level",
+   "na+",
+   "s.sodium"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low sodium can cause confusion and weakness. Often related to fluid balance.",
+  "clinical_note_high": "High sodium may indicate dehydration or excess salt intake.",
+  "wellness_focus": [
+   "hydration",
+   "balanced sodium intake",
+   "varied diet"
+  ],
+  "related_tests": [
+   "2823-3",
+   "2075-0"
+  ]
+ },
+ "2823-3": {
+  "loinc": "2823-3",
+  "short": "Potassium",
+  "canonical": "serum_potassium",
+  "long": "Potassium [Moles/volume] in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mmol/L",
+  "ranges": {
+   "default": {
+    "low": 3.5,
+    "high": 5.1,
+    "critical_low": 2.5,
+    "critical_high": 6.5
+   }
+  },
+  "aliases": [
+   "potassium",
+   "k",
+   "serum potassium",
+   "potassium level",
+   "k+",
+   "s.potassium"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low potassium can cause muscle weakness, cramps. Bananas, sweet potatoes are good sources.",
+  "clinical_note_high": "High potassium can affect heart rhythm. Discuss with doctor.",
+  "wellness_focus": [
+   "potassium-rich foods",
+   "kidney health",
+   "hydration"
+  ],
+  "related_tests": [
+   "2951-2"
+  ]
+ },
+ "17861-6": {
+  "loinc": "17861-6",
+  "short": "Calcium",
+  "canonical": "serum_calcium",
+  "long": "Calcium [Mass/volume] in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 8.5,
+    "high": 10.5,
+    "critical_low": 6.0,
+    "critical_high": 14.0
+   }
+  },
+  "aliases": [
+   "calcium",
+   "ca",
+   "serum calcium",
+   "total calcium",
+   "ca2+",
+   "s.calcium"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low calcium may cause muscle cramps and tingling. Vitamin D deficiency often contributes.",
+  "clinical_note_high": "Elevated calcium can cause fatigue and weakness.",
+  "wellness_focus": [
+   "calcium-rich foods",
+   "vitamin D",
+   "sunlight exposure",
+   "weight-bearing exercise"
+  ],
+  "related_tests": [
+   "1989-3",
+   "2777-1"
+  ]
+ },
+ "1988-5": {
+  "loinc": "1988-5",
+  "short": "CRP",
+  "canonical": "c_reactive_protein",
+  "long": "C reactive protein [Mass/volume] in Serum or Plasma",
+  "category": "Inflammation Markers",
+  "class": "CHEM",
+  "units": "mg/L",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 10.0,
+    "critical_low": 0.0,
+    "critical_high": 200.0
+   }
+  },
+  "aliases": [
+   "crp",
+   "c reactive protein",
+   "c-reactive protein",
+   "hs-crp",
+   "high sensitivity crp",
+   "hscrp"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low CRP indicates low inflammation — desirable.",
+  "clinical_note_high": "Elevated CRP indicates inflammation. Can be from infection, chronic disease, or lifestyle factors.",
+  "wellness_focus": [
+   "anti-inflammatory diet",
+   "omega-3s",
+   "exercise",
+   "weight management",
+   "sleep"
+  ],
+  "related_tests": [
+   "4537-7"
+  ]
+ },
+ "4537-7": {
+  "loinc": "4537-7",
+  "short": "ESR",
+  "canonical": "erythrocyte_sedimentation_rate",
+  "long": "Erythrocyte sedimentation rate by Westergren method",
+  "category": "Inflammation Markers",
+  "class": "HEM/BC",
+  "units": "mm/h",
+  "ranges": {
+   "adult_male": {
+    "low": 0.0,
+    "high": 15.0,
+    "critical_low": 0.0,
+    "critical_high": 100.0
+   },
+   "adult_female": {
+    "low": 0.0,
+    "high": 20.0,
+    "critical_low": 0.0,
+    "critical_high": 100.0
+   },
+   "default": {
+    "low": 0.0,
+    "high": 20.0,
+    "critical_low": 0.0,
+    "critical_high": 100.0
+   }
+  },
+  "aliases": [
+   "esr",
+   "sed rate",
+   "erythrocyte sedimentation rate",
+   "westergren",
+   "sedimentation rate"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low ESR is normal and desirable.",
+  "clinical_note_high": "Elevated ESR suggests inflammation or infection.",
+  "wellness_focus": [
+   "anti-inflammatory diet",
+   "stress management",
+   "sleep",
+   "exercise"
+  ],
+  "related_tests": [
+   "1988-5"
+  ]
+ },
+ "2276-4": {
+  "loinc": "2276-4",
+  "short": "Ferritin",
+  "canonical": "ferritin",
+  "long": "Ferritin [Mass/volume] in Serum or Plasma",
+  "category": "Iron Studies",
+  "class": "CHEM",
+  "units": "ng/mL",
+  "ranges": {
+   "adult_male": {
+    "low": 30.0,
+    "high": 400.0,
+    "critical_low": 5.0,
+    "critical_high": 1000.0
+   },
+   "adult_female": {
+    "low": 13.0,
+    "high": 150.0,
+    "critical_low": 5.0,
+    "critical_high": 1000.0
+   },
+   "default": {
+    "low": 13.0,
+    "high": 400.0,
+    "critical_low": 5.0,
+    "critical_high": 1000.0
+   }
+  },
+  "aliases": [
+   "ferritin",
+   "serum ferritin",
+   "iron stores",
+   "ferritin level",
+   "s.ferritin"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low ferritin = depleted iron stores, even before anemia develops. Common cause of fatigue.",
+  "clinical_note_high": "High ferritin can indicate iron overload or acute-phase reaction (inflammation, infection).",
+  "wellness_focus": [
+   "iron-rich foods",
+   "vitamin C for absorption",
+   "avoid tea/coffee with meals"
+  ],
+  "related_tests": [
+   "718-7",
+   "789-8"
+  ]
+ },
+ "1989-3": {
+  "loinc": "1989-3",
+  "short": "Vit D",
+  "canonical": "vitamin_d_25oh",
+  "long": "25-hydroxyvitamin D3 [Mass/volume] in Serum or Plasma",
+  "category": "Vitamins",
+  "class": "CHEM",
+  "units": "ng/mL",
+  "ranges": {
+   "default": {
+    "low": 30.0,
+    "high": 100.0,
+    "critical_low": 10.0,
+    "critical_high": 150.0
+   }
+  },
+  "aliases": [
+   "vitamin d",
+   "vit d",
+   "25-oh vitamin d",
+   "25(oh)d",
+   "25-hydroxyvitamin d",
+   "vitamin d3",
+   "cholecalciferol",
+   "vit d 25oh",
+   "vitamin d level"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "<20 ng/mL = deficiency. 20-29 = insufficiency. Affects bone health, immune function, mood.",
+  "clinical_note_high": ">100 ng/mL from supplements may cause toxicity.",
+  "wellness_focus": [
+   "15-min daily sunlight",
+   "vitamin D-rich foods",
+   "fatty fish",
+   "fortified dairy",
+   "supplementation if deficient"
+  ],
+  "related_tests": [
+   "17861-6"
+  ]
+ },
+ "2132-9": {
+  "loinc": "2132-9",
+  "short": "Vit B12",
+  "canonical": "vitamin_b12",
+  "long": "Cobalamin (vitamin B12) [Mass/volume] in Serum or Plasma",
+  "category": "Vitamins",
+  "class": "CHEM",
+  "units": "pg/mL",
+  "ranges": {
+   "default": {
+    "low": 200.0,
+    "high": 900.0,
+    "critical_low": 100.0,
+    "critical_high": 2000.0
+   }
+  },
+  "aliases": [
+   "vitamin b12",
+   "vit b12",
+   "b12",
+   "cobalamin",
+   "cyanocobalamin",
+   "b12 level",
+   "vitamin b-12"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low B12 can cause fatigue, neurological symptoms, macrocytic anemia. Vegetarians/vegans at higher risk.",
+  "clinical_note_high": "Very high B12 is usually from supplements and rarely harmful.",
+  "wellness_focus": [
+   "B12-rich foods (meat, fish, dairy, eggs)",
+   "supplementation if vegetarian",
+   "gut health"
+  ],
+  "related_tests": [
+   "718-7"
+  ]
+ },
+ "5902-2": {
+  "loinc": "5902-2",
+  "short": "PT",
+  "canonical": "prothrombin_time",
+  "long": "Prothrombin time (PT)",
+  "category": "Coagulation",
+  "class": "COAG",
+  "units": "s",
+  "ranges": {
+   "default": {
+    "low": 11.0,
+    "high": 13.5,
+    "critical_low": 5.0,
+    "critical_high": 60.0
+   }
+  },
+  "aliases": [
+   "pt",
+   "prothrombin time",
+   "prothrombin",
+   "clotting time pt",
+   "pt test"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Very low PT is uncommon.",
+  "clinical_note_high": "Prolonged PT indicates slower clotting. Liver disease, vitamin K deficiency can cause this.",
+  "wellness_focus": [
+   "vitamin K-rich foods",
+   "liver health"
+  ],
+  "related_tests": [
+   "6301-6"
+  ]
+ },
+ "19123-9": {
+  "loinc": "19123-9",
+  "short": "Magnesium",
+  "canonical": "serum_magnesium",
+  "long": "Magnesium [Mass/volume] in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 1.7,
+    "high": 2.4,
+    "critical_low": 1.0,
+    "critical_high": 5.0
+   }
+  },
+  "aliases": [
+   "magnesium",
+   "mg",
+   "serum magnesium",
+   "magnesium level",
+   "mg2+",
+   "s.magnesium"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low magnesium can cause muscle cramps, fatigue, and poor sleep.",
+  "clinical_note_high": "High magnesium is rare with normal kidney function.",
+  "wellness_focus": [
+   "magnesium-rich foods (nuts, seeds, dark chocolate, leafy greens)",
+   "stress reduction",
+   "sleep quality"
+  ],
+  "related_tests": [
+   "2823-3"
+  ]
+ },
+ "1751-7": {
+  "loinc": "1751-7",
+  "short": "Albumin",
+  "canonical": "serum_albumin",
+  "long": "Albumin [Mass/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "g/dL",
+  "ranges": {
+   "default": {
+    "low": 3.5,
+    "high": 5.0,
+    "critical_low": 2.0,
+    "critical_high": 6.0
+   }
+  },
+  "aliases": [
+   "albumin",
+   "serum albumin",
+   "alb",
+   "s.albumin",
+   "plasma albumin"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low albumin may indicate poor nutrition or liver issues.",
+  "clinical_note_high": "Elevated albumin may indicate dehydration.",
+  "wellness_focus": [
+   "adequate protein intake",
+   "nutrition assessment",
+   "hydration"
+  ],
+  "related_tests": [
+   "2885-2"
+  ]
+ },
+ "2777-1": {
+  "loinc": "2777-1",
+  "short": "Phosphate",
+  "canonical": "serum_phosphate",
+  "long": "Phosphate [Mass/volume] in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 2.5,
+    "high": 4.5,
+    "critical_low": 1.0,
+    "critical_high": 8.0
+   }
+  },
+  "aliases": [
+   "phosphate",
+   "phosphorus",
+   "phos",
+   "serum phosphate",
+   "inorganic phosphorus",
+   "inorganic phosphate"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low phosphate may relate to malnutrition or malabsorption.",
+  "clinical_note_high": "Elevated phosphate may indicate kidney dysfunction.",
+  "wellness_focus": [
+   "balanced diet",
+   "kidney health",
+   "calcium balance"
+  ],
+  "related_tests": [
+   "17861-6",
+   "2160-0"
+  ]
+ },
+ "2339-0": {
+  "loinc": "2339-0",
+  "short": "Glucose Blood",
+  "canonical": "blood_glucose",
+  "long": "Glucose [Mass/volume] in Blood",
+  "category": "Metabolic Panel",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 70.0,
+    "high": 140.0,
+    "critical_low": 40.0,
+    "critical_high": 500.0
+   }
+  },
+  "aliases": [
+   "blood glucose",
+   "ppbs",
+   "postprandial blood sugar",
+   "random blood sugar",
+   "rbs",
+   "post prandial glucose",
+   "2hr glucose"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Low blood glucose can cause shakiness and confusion.",
+  "clinical_note_high": "Elevated blood glucose after meals suggests impaired glucose tolerance.",
+  "wellness_focus": [
+   "low-glycemic diet",
+   "exercise",
+   "weight management"
+  ],
+  "related_tests": [
+   "4548-4",
+   "2345-7"
+  ]
+ },
+ "1968-7": {
+  "loinc": "1968-7",
+  "short": "Direct Bilirubin",
+  "canonical": "direct_bilirubin",
+  "long": "Bilirubin.direct [Mass/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 0.3,
+    "critical_low": 0.0,
+    "critical_high": 10.0
+   }
+  },
+  "aliases": [
+   "direct bilirubin",
+   "dbil",
+   "conjugated bilirubin",
+   "bilirubin direct"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low direct bilirubin has no significance.",
+  "clinical_note_high": "Elevated direct bilirubin may indicate bile duct obstruction or liver disease.",
+  "wellness_focus": [
+   "hydration",
+   "limit alcohol",
+   "liver-friendly diet"
+  ],
+  "related_tests": [
+   "1975-2",
+   "1742-6"
+  ]
+ },
+ "2075-0": {
+  "loinc": "2075-0",
+  "short": "Chloride",
+  "canonical": "serum_chloride",
+  "long": "Chloride [Moles/volume] in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mmol/L",
+  "ranges": {
+   "default": {
+    "low": 96.0,
+    "high": 106.0,
+    "critical_low": 80.0,
+    "critical_high": 120.0
+   }
+  },
+  "aliases": [
+   "chloride",
+   "cl",
+   "serum chloride",
+   "chloride level",
+   "cl-"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low chloride may indicate fluid loss or metabolic alkalosis.",
+  "clinical_note_high": "High chloride may indicate dehydration.",
+  "wellness_focus": [
+   "hydration",
+   "balanced diet"
+  ],
+  "related_tests": [
+   "2951-2",
+   "2823-3"
+  ]
+ },
+ "2885-2": {
+  "loinc": "2885-2",
+  "short": "Total Protein",
+  "canonical": "total_protein",
+  "long": "Protein [Mass/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "g/dL",
+  "ranges": {
+   "default": {
+    "low": 6.0,
+    "high": 8.3,
+    "critical_low": 3.0,
+    "critical_high": 12.0
+   }
+  },
+  "aliases": [
+   "total protein",
+   "protein",
+   "serum protein",
+   "prot",
+   "t.protein",
+   "s.protein"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low total protein may suggest malnutrition or liver/kidney issues.",
+  "clinical_note_high": "High total protein may indicate dehydration or certain conditions.",
+  "wellness_focus": [
+   "adequate protein intake",
+   "balanced nutrition",
+   "hydration"
+  ],
+  "related_tests": [
+   "1751-7",
+   "10834-0"
+  ]
+ },
+ "10839-9": {
+  "loinc": "10839-9",
+  "short": "Troponin I",
+  "canonical": "troponin_i",
+  "long": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+  "category": "Cardiac Markers",
+  "class": "CHEM",
+  "units": "ng/mL",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 0.04,
+    "critical_low": 0.0,
+    "critical_high": 100.0
+   }
+  },
+  "aliases": [
+   "troponin",
+   "troponin i",
+   "cardiac troponin",
+   "tni",
+   "ctni"
+  ],
+  "specialty": "Cardiologist",
+  "clinical_note_low": "Low troponin is normal and desirable.",
+  "clinical_note_high": "Elevated troponin is a critical cardiac marker. Seek urgent medical evaluation if elevated.",
+  "wellness_focus": [
+   "cardiac risk reduction",
+   "heart-healthy lifestyle"
+  ],
+  "related_tests": []
+ },
+ "6301-6": {
+  "loinc": "6301-6",
+  "short": "INR",
+  "canonical": "international_normalized_ratio",
+  "long": "INR in Platelet poor plasma by Coagulation assay",
+  "category": "Coagulation",
+  "class": "COAG",
+  "units": "",
+  "ranges": {
+   "default": {
+    "low": 0.8,
+    "high": 1.2,
+    "critical_low": 0.5,
+    "critical_high": 5.0
+   }
+  },
+  "aliases": [
+   "inr",
+   "international normalized ratio",
+   "pt inr",
+   "prothrombin inr"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Low INR (faster clotting) is uncommon.",
+  "clinical_note_high": "High INR indicates prolonged clotting time. May relate to anticoagulant therapy or liver disease.",
+  "wellness_focus": [
+   "vitamin K awareness",
+   "medication adherence",
+   "liver health"
+  ],
+  "related_tests": [
+   "5902-2"
+  ]
+ },
+ "3040-3": {
+  "loinc": "3040-3",
+  "short": "Lipase",
+  "canonical": "lipase",
+  "long": "Lipase [Enzymatic activity/volume] in Serum or Plasma",
+  "category": "Pancreatic Function",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 160.0,
+    "critical_low": 0.0,
+    "critical_high": 600.0
+   }
+  },
+  "aliases": [
+   "lipase",
+   "serum lipase",
+   "pancreatic lipase",
+   "lip"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low lipase has no clinical significance.",
+  "clinical_note_high": "Elevated lipase may indicate pancreatic stress. Avoid alcohol and fatty foods.",
+  "wellness_focus": [
+   "avoid alcohol",
+   "low-fat diet",
+   "hydration"
+  ],
+  "related_tests": []
+ },
+ "48643-1": {
+  "loinc": "48643-1",
+  "short": "eGFR",
+  "canonical": "estimated_gfr",
+  "long": "Glomerular filtration rate/1.73 sq M.predicted among blacks [Volume Rate/Area] in Serum, Plasma or Blood",
+  "category": "Kidney Function",
+  "class": "CHEM",
+  "units": "mL/min/1.73m2",
+  "ranges": {
+   "default": {
+    "low": 60.0,
+    "high": 999.0,
+    "critical_low": 15.0,
+    "critical_high": 999.0
+   }
+  },
+  "aliases": [
+   "egfr",
+   "gfr",
+   "estimated gfr",
+   "glomerular filtration rate",
+   "estimated glomerular filtration rate"
+  ],
+  "specialty": "Nephrologist",
+  "clinical_note_low": "Low eGFR suggests reduced kidney filtration capacity. Values <60 warrant further evaluation.",
+  "clinical_note_high": "High eGFR is generally favorable.",
+  "wellness_focus": [
+   "hydration",
+   "blood pressure control",
+   "diabetes management",
+   "low-sodium diet"
+  ],
+  "related_tests": [
+   "2160-0",
+   "3094-0"
+  ]
+ },
+ "2028-9": {
+  "loinc": "2028-9",
+  "short": "CO2",
+  "canonical": "bicarbonate",
+  "long": "Carbon dioxide, total [Moles/volume] in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mmol/L",
+  "ranges": {
+   "default": {
+    "low": 22.0,
+    "high": 29.0,
+    "critical_low": 10.0,
+    "critical_high": 45.0
+   }
+  },
+  "aliases": [
+   "co2",
+   "bicarbonate",
+   "total co2",
+   "hco3",
+   "bicarb",
+   "tco2"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low bicarbonate may indicate metabolic acidosis.",
+  "clinical_note_high": "High bicarbonate may indicate metabolic alkalosis.",
+  "wellness_focus": [
+   "hydration",
+   "balanced diet",
+   "kidney health"
+  ],
+  "related_tests": [
+   "2951-2",
+   "2823-3"
+  ]
+ },
+ "10466-1": {
+  "loinc": "10466-1",
+  "short": "Anion Gap",
+  "canonical": "anion_gap",
+  "long": "Anion gap 3 in Serum or Plasma",
+  "category": "Electrolytes",
+  "class": "CHEM",
+  "units": "mmol/L",
+  "ranges": {
+   "default": {
+    "low": 8.0,
+    "high": 16.0,
+    "critical_low": 0.0,
+    "critical_high": 30.0
+   }
+  },
+  "aliases": [
+   "anion gap",
+   "ag",
+   "anion gap serum"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low anion gap is uncommon.",
+  "clinical_note_high": "High anion gap may indicate metabolic acidosis.",
+  "wellness_focus": [
+   "hydration",
+   "balanced diet",
+   "kidney health"
+  ],
+  "related_tests": [
+   "2951-2",
+   "2823-3",
+   "2028-9"
+  ]
+ },
+ "3051-0": {
+  "loinc": "3051-0",
+  "short": "FT3",
+  "canonical": "free_triiodothyronine",
+  "long": "Triiodothyronine.free [Mass/volume] in Serum or Plasma",
+  "category": "Thyroid Function",
+  "class": "CHEM",
+  "units": "pg/mL",
+  "ranges": {
+   "default": {
+    "low": 2.0,
+    "high": 4.4,
+    "critical_low": 1.0,
+    "critical_high": 10.0
+   }
+  },
+  "aliases": [
+   "ft3",
+   "free t3",
+   "free triiodothyronine",
+   "t3 free"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Low free T3 may suggest an underactive thyroid; worth discussing with your doctor.",
+  "clinical_note_high": "High free T3 may suggest an overactive thyroid; worth discussing with your doctor.",
+  "wellness_focus": [
+   "iodine-rich foods",
+   "selenium",
+   "stress management"
+  ],
+  "related_tests": [
+   "3016-3",
+   "3024-7"
+  ]
+ },
+ "3084-1": {
+  "loinc": "3084-1",
+  "short": "Uric Acid",
+  "canonical": "uric_acid",
+  "long": "Urate [Mass/volume] in Serum or Plasma",
+  "category": "Metabolic Panel",
+  "class": "CHEM",
+  "units": "mg/dL",
+  "ranges": {
+   "adult_male": {
+    "low": 3.4,
+    "high": 7.0,
+    "critical_low": 1.0,
+    "critical_high": 13.0
+   },
+   "adult_female": {
+    "low": 2.4,
+    "high": 6.0,
+    "critical_low": 1.0,
+    "critical_high": 12.0
+   },
+   "default": {
+    "low": 2.4,
+    "high": 7.0,
+    "critical_low": 1.0,
+    "critical_high": 13.0
+   }
+  },
+  "aliases": [
+   "uric acid",
+   "urate",
+   "s. uric acid",
+   "serum uric acid"
+  ],
+  "specialty": "Rheumatologist",
+  "clinical_note_low": "Low uric acid is uncommon and usually not concerning.",
+  "clinical_note_high": "Elevated uric acid is often associated with gout or kidney stones; worth discussing with your doctor.",
+  "wellness_focus": [
+   "hydration",
+   "limit red meat",
+   "limit alcohol",
+   "limit sugary drinks"
+  ],
+  "related_tests": []
+ },
+ "2498-4": {
+  "loinc": "2498-4",
+  "short": "Iron",
+  "canonical": "serum_iron",
+  "long": "Iron [Mass/volume] in Serum or Plasma",
+  "category": "Iron Studies",
+  "class": "CHEM",
+  "units": "ug/dL",
+  "ranges": {
+   "default": {
+    "low": 60.0,
+    "high": 170.0,
+    "critical_low": 20.0,
+    "critical_high": 500.0
+   }
+  },
+  "aliases": [
+   "iron",
+   "serum iron",
+   "fe"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Low serum iron may suggest iron deficiency; often reviewed with ferritin and TIBC.",
+  "clinical_note_high": "High serum iron may suggest iron overload; worth discussing with your doctor.",
+  "wellness_focus": [
+   "iron-rich foods",
+   "vitamin C with meals"
+  ],
+  "related_tests": [
+   "2276-4",
+   "2500-7"
+  ]
+ },
+ "2500-7": {
+  "loinc": "2500-7",
+  "short": "TIBC",
+  "canonical": "total_iron_binding_capacity",
+  "long": "Iron binding capacity [Mass/volume] in Serum or Plasma",
+  "category": "Iron Studies",
+  "class": "CHEM",
+  "units": "ug/dL",
+  "ranges": {
+   "default": {
+    "low": 240.0,
+    "high": 450.0,
+    "critical_low": 150.0,
+    "critical_high": 600.0
+   }
+  },
+  "aliases": [
+   "tibc",
+   "iron binding capacity",
+   "total iron binding capacity"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Low TIBC may be associated with iron overload or chronic disease.",
+  "clinical_note_high": "High TIBC is often associated with iron deficiency.",
+  "wellness_focus": [
+   "balanced diet"
+  ],
+  "related_tests": [
+   "2276-4",
+   "2498-4"
+  ]
+ },
+ "2284-8": {
+  "loinc": "2284-8",
+  "short": "Folate",
+  "canonical": "folic_acid",
+  "long": "Folate [Mass/volume] in Serum or Plasma",
+  "category": "Vitamins",
+  "class": "CHEM",
+  "units": "ng/mL",
+  "ranges": {
+   "default": {
+    "low": 3.0,
+    "high": 17.0,
+    "critical_low": 1.0,
+    "critical_high": 40.0
+   }
+  },
+  "aliases": [
+   "folate",
+   "folic acid",
+   "serum folate",
+   "vitamin b9"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low folate may be associated with certain anemias; worth discussing with your doctor.",
+  "clinical_note_high": "High folate is usually not concerning.",
+  "wellness_focus": [
+   "leafy greens",
+   "legumes",
+   "citrus"
+  ],
+  "related_tests": [
+   "2132-9"
+  ]
+ },
+ "787-2": {
+  "loinc": "787-2",
+  "short": "MCV",
+  "canonical": "mean_corpuscular_volume",
+  "long": "MCV [Entitic volume] by Automated count",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "fL",
+  "ranges": {
+   "default": {
+    "low": 80.0,
+    "high": 100.0,
+    "critical_low": 60.0,
+    "critical_high": 130.0
+   }
+  },
+  "aliases": [
+   "mcv",
+   "mean corpuscular volume"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Low MCV (small red cells) is often associated with iron deficiency.",
+  "clinical_note_high": "High MCV (large red cells) may be associated with B12 or folate deficiency.",
+  "wellness_focus": [
+   "balanced diet"
+  ],
+  "related_tests": [
+   "718-7",
+   "2276-4"
+  ]
+ },
+ "785-6": {
+  "loinc": "785-6",
+  "short": "MCH",
+  "canonical": "mean_corpuscular_hemoglobin",
+  "long": "MCH [Entitic mass] by Automated count",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "pg",
+  "ranges": {
+   "default": {
+    "low": 27.0,
+    "high": 33.0,
+    "critical_low": 15.0,
+    "critical_high": 45.0
+   }
+  },
+  "aliases": [
+   "mch",
+   "mean corpuscular hemoglobin"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Low MCH may be associated with iron-deficiency patterns.",
+  "clinical_note_high": "High MCH may be associated with macrocytic patterns.",
+  "wellness_focus": [
+   "balanced diet"
+  ],
+  "related_tests": [
+   "718-7"
+  ]
+ },
+ "786-4": {
+  "loinc": "786-4",
+  "short": "MCHC",
+  "canonical": "mean_corpuscular_hemoglobin_concentration",
+  "long": "MCHC [Mass/volume] by Automated count",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "g/dL",
+  "ranges": {
+   "default": {
+    "low": 32.0,
+    "high": 36.0,
+    "critical_low": 28.0,
+    "critical_high": 40.0
+   }
+  },
+  "aliases": [
+   "mchc",
+   "mean corpuscular hemoglobin concentration"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Low MCHC may be associated with iron deficiency.",
+  "clinical_note_high": "High MCHC may be seen in certain red-cell conditions.",
+  "wellness_focus": [
+   "balanced diet"
+  ],
+  "related_tests": [
+   "718-7"
+  ]
+ },
+ "788-0": {
+  "loinc": "788-0",
+  "short": "RDW",
+  "canonical": "red_cell_distribution_width",
+  "long": "Erythrocyte distribution width [Ratio] by Automated count",
+  "category": "Complete Blood Count",
+  "class": "HEM/BC",
+  "units": "%",
+  "ranges": {
+   "default": {
+    "low": 11.5,
+    "high": 14.5,
+    "critical_low": 10.0,
+    "critical_high": 25.0
+   }
+  },
+  "aliases": [
+   "rdw",
+   "red cell distribution width"
+  ],
+  "specialty": "Hematologist",
+  "clinical_note_low": "Low RDW is generally not concerning.",
+  "clinical_note_high": "High RDW indicates variation in red-cell size and may accompany certain anemias.",
+  "wellness_focus": [
+   "balanced diet"
+  ],
+  "related_tests": [
+   "718-7",
+   "787-2"
+  ]
+ },
+ "2324-2": {
+  "loinc": "2324-2",
+  "short": "GGT",
+  "canonical": "gamma_glutamyl_transferase",
+  "long": "Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma",
+  "category": "Liver Function",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "adult_male": {
+    "low": 8.0,
+    "high": 61.0,
+    "critical_low": 0.0,
+    "critical_high": 300.0
+   },
+   "adult_female": {
+    "low": 5.0,
+    "high": 36.0,
+    "critical_low": 0.0,
+    "critical_high": 300.0
+   },
+   "default": {
+    "low": 5.0,
+    "high": 61.0,
+    "critical_low": 0.0,
+    "critical_high": 300.0
+   }
+  },
+  "aliases": [
+   "ggt",
+   "gamma glutamyl transferase",
+   "gamma gt"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low GGT is not concerning.",
+  "clinical_note_high": "Elevated GGT may be associated with liver or bile-duct stress; worth discussing with your doctor.",
+  "wellness_focus": [
+   "limit alcohol",
+   "balanced diet"
+  ],
+  "related_tests": [
+   "1742-6",
+   "6768-6"
+  ]
+ },
+ "1798-8": {
+  "loinc": "1798-8",
+  "short": "Amylase",
+  "canonical": "amylase",
+  "long": "Amylase [Enzymatic activity/volume] in Serum or Plasma",
+  "category": "Pancreatic Function",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "default": {
+    "low": 30.0,
+    "high": 110.0,
+    "critical_low": 0.0,
+    "critical_high": 600.0
+   }
+  },
+  "aliases": [
+   "amylase",
+   "serum amylase"
+  ],
+  "specialty": "Gastroenterologist",
+  "clinical_note_low": "Low amylase is usually not concerning.",
+  "clinical_note_high": "Elevated amylase may be associated with pancreatic inflammation; worth discussing with your doctor.",
+  "wellness_focus": [
+   "hydration",
+   "limit alcohol"
+  ],
+  "related_tests": [
+   "3040-3"
+  ]
+ },
+ "14804-9": {
+  "loinc": "14804-9",
+  "short": "LDH",
+  "canonical": "lactate_dehydrogenase",
+  "long": "Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by LDH-P",
+  "category": "Metabolic Panel",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "default": {
+    "low": 140.0,
+    "high": 280.0,
+    "critical_low": 50.0,
+    "critical_high": 1000.0
+   }
+  },
+  "aliases": [
+   "ldh",
+   "lactate dehydrogenase",
+   "ld"
+  ],
+  "specialty": "General Physician",
+  "clinical_note_low": "Low LDH is usually not concerning.",
+  "clinical_note_high": "Elevated LDH is non-specific and may reflect tissue stress; interpreted in context by your doctor.",
+  "wellness_focus": [
+   "balanced diet"
+  ],
+  "related_tests": []
+ },
+ "2857-1": {
+  "loinc": "2857-1",
+  "short": "PSA",
+  "canonical": "prostate_specific_antigen",
+  "long": "Prostate specific Ag [Mass/volume] in Serum or Plasma",
+  "category": "Tumor Markers",
+  "class": "CHEM",
+  "units": "ng/mL",
+  "ranges": {
+   "default": {
+    "low": 0.0,
+    "high": 4.0,
+    "critical_low": 0.0,
+    "critical_high": 100.0
+   }
+  },
+  "aliases": [
+   "psa",
+   "prostate specific antigen",
+   "prostate antigen"
+  ],
+  "specialty": "Urologist",
+  "clinical_note_low": "Low PSA is reassuring.",
+  "clinical_note_high": "Elevated PSA may warrant further evaluation; worth discussing with your doctor.",
+  "wellness_focus": [
+   "routine screening as advised"
+  ],
+  "related_tests": []
+ },
+ "20448-7": {
+  "loinc": "20448-7",
+  "short": "Insulin",
+  "canonical": "fasting_insulin",
+  "long": "Insulin [Units/volume] in Serum or Plasma --fasting",
+  "category": "Diabetes Monitoring",
+  "class": "CHEM",
+  "units": "uIU/mL",
+  "ranges": {
+   "default": {
+    "low": 2.0,
+    "high": 25.0,
+    "critical_low": 0.0,
+    "critical_high": 300.0
+   }
+  },
+  "aliases": [
+   "insulin",
+   "fasting insulin",
+   "serum insulin"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Low fasting insulin is interpreted in context with glucose.",
+  "clinical_note_high": "High fasting insulin may suggest insulin resistance; worth discussing with your doctor.",
+  "wellness_focus": [
+   "weight management",
+   "reduce refined carbs",
+   "regular exercise"
+  ],
+  "related_tests": [
+   "4548-4",
+   "2345-7"
+  ]
+ },
+ "2157-6": {
+  "loinc": "2157-6",
+  "short": "CK",
+  "canonical": "creatine_kinase",
+  "long": "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma",
+  "category": "Cardiac Markers",
+  "class": "CHEM",
+  "units": "U/L",
+  "ranges": {
+   "adult_male": {
+    "low": 39.0,
+    "high": 308.0,
+    "critical_low": 0.0,
+    "critical_high": 2000.0
+   },
+   "adult_female": {
+    "low": 26.0,
+    "high": 192.0,
+    "critical_low": 0.0,
+    "critical_high": 2000.0
+   },
+   "default": {
+    "low": 26.0,
+    "high": 308.0,
+    "critical_low": 0.0,
+    "critical_high": 2000.0
+   }
+  },
+  "aliases": [
+   "ck",
+   "cpk",
+   "creatine kinase",
+   "creatine phosphokinase"
+  ],
+  "specialty": "Cardiologist",
+  "clinical_note_low": "Low CK is usually not concerning.",
+  "clinical_note_high": "Elevated CK may reflect muscle stress or injury; interpreted in context by your doctor.",
+  "wellness_focus": [
+   "hydration",
+   "avoid overexertion before testing"
+  ],
+  "related_tests": []
+ },
+ "2143-6": {
+  "loinc": "2143-6",
+  "short": "Cortisol",
+  "canonical": "cortisol",
+  "long": "Cortisol [Mass/volume] in Serum or Plasma",
+  "category": "Endocrine",
+  "class": "CHEM",
+  "units": "ug/dL",
+  "ranges": {
+   "default": {
+    "low": 6.0,
+    "high": 23.0,
+    "critical_low": 1.0,
+    "critical_high": 80.0
+   }
+  },
+  "aliases": [
+   "cortisol",
+   "morning cortisol",
+   "serum cortisol"
+  ],
+  "specialty": "Endocrinologist",
+  "clinical_note_low": "Low cortisol may suggest adrenal insufficiency; worth discussing with your doctor.",
+  "clinical_note_high": "High cortisol may be associated with stress or adrenal conditions; worth discussing with your doctor.",
+  "wellness_focus": [
+   "sleep optimization",
+   "stress management"
+  ],
+  "related_tests": []
+ }
+}

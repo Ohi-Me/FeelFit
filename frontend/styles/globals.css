@@ -1,0 +1,776 @@
+/* FeelFit V2 — Premium Healthcare Intelligence Edition 🏥 */
+
+@import url('https://fonts.googleapis.com/css2?family=Della+Respira&family=DM+Mono:wght@400;500&display=swap');
+
+/* ════════════════════════════════════════════════════════════════════════════
+   FeelFit — "Calm Clinical" design system
+   Calm, premium, trustworthy. Light-first. Teal primary, deep ink, soft depth.
+   :root = dark (refined deep green-black). .light = default (see page).
+   ════════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Backgrounds — true black & charcoal */
+  --bg: #0a0a0a;
+  --bg1: #151515;
+  --bg2: #1d1d1d;
+  --bg3: #272727;
+  --bg4: #333333;
+
+  /* Surfaces */
+  --surf: rgba(255, 255, 255, 0.045);
+  --surf2: rgba(255, 255, 255, 0.07);
+  --surf3: rgba(255, 255, 255, 0.10);
+
+  /* Hairline borders */
+  --bd: rgba(255, 255, 255, 0.10);
+  --bd2: rgba(255, 255, 255, 0.15);
+  --bd3: rgba(255, 255, 255, 0.22);
+
+  /* Text */
+  --txt: #f5f5f4;
+  --txt2: rgba(245, 245, 244, 0.66);
+  --txt3: rgba(245, 245, 244, 0.45);
+  --txt4: rgba(245, 245, 244, 0.30);
+
+  /* Brand — monochrome (white on dark) */
+  --accent: #ffffff;
+  --accent2: #e5e5e5;
+  --accent3: #d4d4d4;
+  --accent4: #a3a3a3;
+  --accent-grad: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
+  --accent-grad-shine: linear-gradient(120deg, #a3a3a3 0%, #ffffff 50%, #d4d4d4 100%);
+  --accent-grad-vivid: linear-gradient(135deg, #fafafa 0%, #a3a3a3 100%);
+
+  /* Secondary accents → grayscale */
+  --accent-green: #34d399;
+  --accent-purple: #a3a3a3;
+  --accent-pink: #d4d4d4;
+
+  /* AskFit — "love + fit" accent: a rose→emerald blend (engaging, with green in it) */
+  --askfit: #10b981;                 /* emerald solid (dark theme) */
+  --askfit-2: #fb7185;               /* rose */
+  --askfit-bg: rgba(16, 185, 129, 0.13);
+  --askfit-bd: rgba(16, 185, 129, 0.34);
+  --askfit-glow: rgba(16, 185, 129, 0.30);
+  --askfit-grad: linear-gradient(135deg, #fb7185 0%, #10b981 100%);
+
+  /* Glow — neutral, subtle */
+  --glow: rgba(255, 255, 255, 0.10);
+  --glow2: rgba(255, 255, 255, 0.06);
+  --glow3: rgba(255, 255, 255, 0.03);
+  --glow-spread: 0 0 40px rgba(255, 255, 255, 0.08);
+
+  /* Semantic (kept colored for medical clarity) */
+  --ok: #34d399;       --ok-glow: rgba(52, 211, 153, 0.18); --ok-bg: rgba(52, 211, 153, 0.12); --ok-bd: rgba(52, 211, 153, 0.24);
+  --warn: #fbbf24;     --warn-glow: rgba(251, 191, 36, 0.18); --warn-bg: rgba(251, 191, 36, 0.12); --warn-bd: rgba(251, 191, 36, 0.24);
+  --danger: #f87171;   --danger-glow: rgba(248, 113, 113, 0.18); --danger-bg: rgba(248, 113, 113, 0.12); --danger-bd: rgba(248, 113, 113, 0.24);
+  --crit: #fb7185;     --crit-glow: rgba(251, 113, 133, 0.24); --crit-bg: rgba(251, 113, 133, 0.15); --crit-bd: rgba(251, 113, 133, 0.30);
+
+  /* Typography — Della Respira (serif) used throughout the app. */
+  --ff: 'Della Respira', Georgia, 'Times New Roman', serif;  /* display headings */
+  --fb: 'Della Respira', Georgia, 'Times New Roman', serif;  /* body / UI */
+  --fm: 'DM Mono', 'SF Mono', ui-monospace, monospace;       /* tabular numbers only */
+
+  /* Radius — generous, Apple-like */
+  --r: 14px;
+  --rm: 18px;
+  --rl: 26px;
+  --rxl: 34px;
+  --rxxl: 48px;
+  --pill: 9999px;
+
+  /* Shadows — soft, layered (Stripe/Linear feel) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.28);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.32);
+  --shadow-lg: 0 16px 44px rgba(0, 0, 0, 0.40);
+  --shadow-xl: 0 28px 72px rgba(0, 0, 0, 0.48);
+  --shadow-glow: 0 8px 30px var(--glow2);
+  --shadow-glow-lg: 0 12px 48px var(--glow);
+  --shadow-inner: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+
+  /* Nav */
+  --nav-h: 72px;
+
+  /* Transitions */
+  --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: all 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Light theme — DEFAULT. White & black, charcoal variants. */
+.light {
+  --bg: #f6f6f4;
+  --bg1: #ffffff;
+  --bg2: #efefec;
+  --bg3: #e7e7e3;
+  --bg4: #dcdcd7;
+
+  --surf: #ffffff;
+  --surf2: #f5f5f3;
+  --surf3: #ededea;
+
+  --bd: rgba(17, 17, 17, 0.09);
+  --bd2: rgba(17, 17, 17, 0.13);
+  --bd3: rgba(17, 17, 17, 0.20);
+
+  --txt: #111111;
+  --txt2: rgba(17, 17, 17, 0.64);
+  --txt3: rgba(17, 17, 17, 0.44);
+  --txt4: rgba(17, 17, 17, 0.28);
+
+  --accent: #111111;
+  --accent2: #000000;
+  --accent3: #333333;
+  --accent4: #666666;
+  --accent-grad: linear-gradient(135deg, #1f1f1f 0%, #000000 100%);
+  --accent-grad-shine: linear-gradient(120deg, #000000 0%, #444444 50%, #111111 100%);
+  --accent-grad-vivid: linear-gradient(135deg, #000000 0%, #333333 100%);
+
+  --accent-green: #15803d;
+  --accent-purple: #404040;
+  --accent-pink: #171717;
+
+  /* AskFit solid reads darker on light backgrounds (gradient/tints stay) */
+  --askfit: #0d9488;
+
+  --glow: rgba(0, 0, 0, 0.10);
+  --glow2: rgba(0, 0, 0, 0.05);
+  --glow3: rgba(0, 0, 0, 0.03);
+
+  --ok: #15803d;       --ok-glow: rgba(21, 128, 61, 0.16); --ok-bg: rgba(21, 128, 61, 0.09); --ok-bd: rgba(21, 128, 61, 0.20);
+  --warn: #b45309;     --warn-glow: rgba(180, 83, 9, 0.16); --warn-bg: rgba(180, 83, 9, 0.09); --warn-bd: rgba(180, 83, 9, 0.20);
+  --danger: #b91c1c;   --danger-glow: rgba(185, 28, 28, 0.16); --danger-bg: rgba(185, 28, 28, 0.08); --danger-bd: rgba(185, 28, 28, 0.18);
+  --crit: #9f1239;     --crit-glow: rgba(159, 18, 57, 0.18); --crit-bg: rgba(159, 18, 57, 0.10); --crit-bd: rgba(159, 18, 57, 0.22);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 14px 38px rgba(0, 0, 0, 0.10);
+  --shadow-xl: 0 26px 60px rgba(0, 0, 0, 0.13);
+  --shadow-glow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow-lg: 0 12px 44px rgba(0, 0, 0, 0.16);
+  --shadow-blue: 0 8px 28px rgba(0, 0, 0, 0.10);
+  --shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ── Google Translate widget — hide its banner & keep our layout intact ──────── */
+.goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip { display: none !important; }
+.goog-te-gadget { height: 0; overflow: hidden; }
+body { top: 0 !important; }
+/* Google wraps translated text in <font>; keep it transparent/inheriting */
+font[style] { background: transparent !important; box-shadow: none !important; }
+.skiptranslate > iframe { display: none !important; visibility: hidden !important; }
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+  letter-spacing: -0.012em;
+  position: relative;
+}
+
+/* Ambient background — barely-there calm tint (premium, not flashy) */
+body::before {
+  content: '';
+  position: fixed;
+  top: -35%;
+  left: -18%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(ellipse, rgba(128, 128, 128, 0.05) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(90px);
+  animation: nebulaFloat 18s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -28%;
+  right: -14%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse, rgba(128,128,128,0.04) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(90px);
+  animation: nebulaFloat 22s ease-in-out infinite alternate-reverse;
+}
+
+/* Content above background */
+#__next, main { position: relative; z-index: 1; }
+
+/* Quiet scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--bd3);
+  border-radius: var(--pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--txt4); background-clip: padding-box; }
+
+/* Selection */
+::selection { background: rgba(128,128,128,0.22); color: var(--txt); }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ff);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  font-weight: 400;
+  color: var(--txt);
+}
+
+/* Della Respira only ships a 400 weight — keep the whole app light & even,
+   removing synthetic faux-bold so nothing looks heavy. */
+h1, h2, h3, h4, h5, h6, strong, b { font-weight: 400 !important; }
+
+a { color: var(--accent); text-decoration: none; transition: var(--transition-fast); }
+a:hover { color: var(--accent3); }
+
+input, textarea, select {
+  font-family: var(--fb);
+  background: var(--bg2);
+  border: 1.5px solid var(--bd2);
+  color: var(--txt);
+  border-radius: var(--rm);
+  transition: var(--transition-fast);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: var(--txt4); }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow2);
+  background: var(--bg3);
+}
+
+button {
+  font-family: var(--fb);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* ── KEYFRAMES ────────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideRight {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.88); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes shimmerText {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nebulaFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(3%, 4%) scale(1.08); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  56% { transform: scale(1); }
+}
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px var(--glow2); }
+  50% { box-shadow: 0 0 40px var(--glow), 0 0 60px var(--glow2); }
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── ANIMATION CLASSES ───────────────────────────────────────────────────── */
+.animate-fadeUp {
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-fadeIn { animation: fadeIn 0.35s ease both; }
+.animate-scaleIn { animation: scaleIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-slideRight { animation: slideRight 0.6s ease-out both; }
+.animate-float { animation: floatUp 4s ease-in-out infinite; }
+.animate-heartbeat { animation: heartbeat 2.5s ease-in-out infinite; }
+.animate-glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+
+/* AskFit chat input — a soft ambient glow that gently breathes around the edges
+   (no rotation, fully contained — just a calm aura hugging the pill). */
+.askfit-aura { position: relative; border-radius: 999px; isolation: isolate; }
+.askfit-aura::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--askfit-2), var(--askfit), #60a5fa, var(--askfit-2));
+  background-size: 200% 100%;
+  filter: blur(9px);
+  opacity: 0.3;
+  z-index: -1;
+  pointer-events: none;
+  animation: auraBreathe 5s ease-in-out infinite;
+}
+.askfit-aura:focus-within::before { opacity: 0.5; }
+.askfit-aura > input { position: relative; z-index: 1; }
+@keyframes auraBreathe {
+  0%, 100% { opacity: 0.24; background-position: 0% 50%; }
+  50%      { opacity: 0.42; background-position: 100% 50%; }
+}
+
+/* Left→right light sweep on hover (Aptos-style CTA shine). Works on light or dark buttons. */
+.sweep { position: relative; overflow: hidden; }
+.sweep::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: -130%;
+  width: 70%;
+  background: linear-gradient(115deg, transparent 0%, rgba(150,150,150,0.0) 20%, rgba(170,170,170,0.45) 50%, transparent 80%);
+  transform: skewX(-18deg);
+  transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.sweep:hover::after { left: 130%; }
+
+/* Hover effects */
+.hover-lift { transition: var(--transition); }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.hover-scale { transition: var(--transition-fast); }
+.hover-scale:hover { transform: scale(1.03); }
+.hover-glow:hover { filter: brightness(1.15) drop-shadow(0 0 12px var(--glow)); }
+
+/* Stagger delays */
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+.delay-4 { animation-delay: 0.32s; }
+.delay-5 { animation-delay: 0.40s; }
+.delay-6 { animation-delay: 0.48s; }
+.delay-7 { animation-delay: 0.56s; }
+.delay-8 { animation-delay: 0.64s; }
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(110deg, var(--surf) 8%, var(--surf2) 18%, var(--surf) 33%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite linear;
+  border-radius: var(--rm);
+}
+
+/* Glass morphism — vibrant */
+.glass {
+  background: rgba(13,148,136, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(13,148,136, 0.08);
+  border-radius: var(--rl);
+}
+.glass:hover {
+  background: rgba(13,148,136, 0.05);
+  border-color: rgba(13,148,136, 0.15);
+}
+
+/* Premium card */
+.glass-card {
+  background: linear-gradient(135deg, var(--surf), var(--surf2));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--bd);
+  border-radius: var(--rxl);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(13,148,136,0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.glass-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: var(--accent-grad-shine);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientFlow 5s ease infinite;
+}
+
+.gradient-text-vivid {
+  background: var(--accent-grad-vivid);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientFlow 4s ease infinite;
+}
+
+/* Shimmer text */
+.shimmer-text {
+  background: linear-gradient(120deg, var(--txt2), var(--accent), var(--accent3), var(--txt));
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmerText 3s linear infinite;
+}
+
+/* Vivid card with left-border accent */
+.card-premium {
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: var(--rxl);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--accent-grad);
+  opacity: 0;
+  transition: var(--transition);
+  border-radius: 4px 0 0 4px;
+}
+.card-premium:hover::before { opacity: 1; }
+.card-premium:hover {
+  transform: translateY(-5px);
+  border-color: var(--bd2);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Button variants */
+.btn-primary {
+  background: var(--accent-grad);
+  background-size: 160% auto;
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: var(--pill);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: var(--transition);
+  box-shadow: var(--shadow-glow);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-lg);
+  background-position: 100% 0;
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  background: var(--surf);
+  border: 1.5px solid var(--bd2);
+  padding: 13px 30px;
+  border-radius: var(--pill);
+  font-weight: 600;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover {
+  background: var(--surf2);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-blue);
+}
+
+/* Badge variants */
+.badge {
+  background: var(--surf);
+  border: 1px solid var(--bd);
+  border-radius: var(--pill);
+  padding: 4px 12px;
+  font-size: 0.73rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.badge-accent { background: var(--glow2); border-color: rgba(13,148,136,0.2); color: var(--accent); }
+.badge-success { background: var(--ok-bg); border-color: var(--ok-bd); color: var(--ok); }
+.badge-warning { background: var(--warn-bg); border-color: var(--warn-bd); color: var(--warn); }
+.badge-danger { background: var(--danger-bg); border-color: var(--danger-bd); color: var(--danger); }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  margin: 2rem 0;
+  opacity: 0.4;
+}
+
+/* Tooltip */
+[data-tooltip] { position: relative; cursor: pointer; }
+[data-tooltip]:before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg3);
+  color: var(--txt);
+  padding: 7px 14px;
+  border-radius: var(--rm);
+  font-size: 0.73rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-fast);
+  border: 1px solid var(--bd2);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+  z-index: 200;
+}
+[data-tooltip]:hover:before { opacity: 1; }
+
+/* Spinner */
+.spinner {
+  width: 44px; height: 44px;
+  border: 3px solid var(--bd);
+  border-top-color: var(--accent);
+  border-right-color: var(--accent2);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 5px;
+  background: var(--bd);
+  border-radius: var(--pill);
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent-grad);
+  border-radius: var(--pill);
+  animation: slideRight 0.6s ease-out;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r);
+}
+
+/* Disabled */
+.disabled, [disabled] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hide-mobile { display: none !important; }
+  .sm-col-1 { grid-template-columns: 1fr !important; }
+  .sm-full { width: 100% !important; }
+  body { font-size: 15px; }
+}
+@media (min-width: 641px) { .show-mobile { display: none !important; } }
+.show-tablet { display: none !important; }
+@media (max-width: 960px) {
+  .hide-tablet { display: none !important; }
+  .show-tablet { display: flex !important; }
+}
+
+/* Monospace numbers */
+.mono {
+  font-family: var(--fm);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ── VIBRANT STATUS PILL ──────────────────────────────────────────────────── */
+.status-normal { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok-bd); }
+.status-high   { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-bd); }
+.status-low    { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-bd); }
+.status-crit   { background: var(--crit-bg); color: var(--crit); border: 1px solid var(--crit-bd); }
+
+/* ── GLOW BORDER ANIMATION ────────────────────────────────────────────────── */
+.glow-border {
+  position: relative;
+}
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--accent), var(--accent-purple), var(--accent));
+  background-size: 200% 200%;
+  animation: borderFlow 4s linear infinite;
+  z-index: -1;
+  opacity: 0.35;
+  filter: blur(4px);
+}
+
+/* ── HEALTH SCORE GRADIENT ───────────────────────────────────────────────── */
+.health-excellent { color: var(--ok); }
+.health-good      { color: var(--accent); }
+.health-fair      { color: var(--warn); }
+.health-poor      { color: var(--danger); }
+
+/* ── PREMIUM GLASSMORPHISM & DEPTH ───────────────────────────────────────── */
+.glass-panel {
+  background: var(--surf);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--bd);
+  box-shadow: var(--shadow-sm);
+}
+
+.glass-panel-elevated {
+  background: var(--surf2);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--bd2);
+  box-shadow: var(--shadow);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Motion-driven card: Framer Motion owns transform (y/scale via spring),
+   CSS owns shadow/border so the two systems never fight over the same property. */
+.motion-card {
+  transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.motion-card:hover {
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  border-color: var(--bd3);
+}
+
+.card-premium {
+  transition: var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-premium:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--bd3);
+}
+
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+  transform: skewX(-25deg);
+  transition: all 0.7s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card-premium:hover::before {
+  left: 150%;
+}
+
+/* ── PREMIUM MOTION SYSTEM ───────────────────────────────────────────────── */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+@keyframes float-premium {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float-premium 6s ease-in-out infinite;
+}
+
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUpIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}

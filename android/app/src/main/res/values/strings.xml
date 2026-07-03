@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">FeelFit</string>
+    <string name="title_activity_main">FeelFit</string>
+    <string name="package_name">app.feelfit.mobile</string>
+    <string name="custom_url_scheme">app.feelfit.mobile</string>
+</resources>

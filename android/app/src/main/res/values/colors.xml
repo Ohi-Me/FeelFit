@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FeelFit brand palette (matches the dark theme in globals.css) -->
+    <color name="colorPrimary">#0a0a0a</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorBackground">#0a0a0a</color>
+    <color name="colorSurface">#151515</color>
+    <color name="colorError">#f87171</color>
+    <color name="colorSuccess">#34d399</color>
+
+    <!-- Splash screen background (matches capacitor.config.ts) -->
+    <color name="splash_background">#0a0a0a</color>
+
+    <!-- Launch window + WebView-boot background — matches the app's light
+         theme and BootSplash so startup is one seamless light surface. -->
+    <color name="launch_background">#f4f4f6</color>
+</resources>

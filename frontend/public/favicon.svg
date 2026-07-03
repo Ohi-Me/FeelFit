@@ -1,0 +1,12 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#00D2C6"/>
+<stop offset="100%" stop-color="#6BE675"/>
+</linearGradient>
+</defs>
+
+<path d="M150 90 C150 40 200 20 270 20 H400 C400 110 350 150 280 150 H150 Z" fill="url(#greenGradient)"/>
+<path d="M150 210 C150 150 210 120 280 120 H370 C370 220 320 260 250 260 H150 Z" fill="url(#greenGradient)"/>
+<path d="M150 320 H230 V400 C230 450 190 490 140 490 H90 V380 C90 340 120 320 150 320 Z" fill="#062A49"/>
+</svg>

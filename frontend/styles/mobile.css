@@ -1,0 +1,546 @@
+/* ════════════════════════════════════════════════════════════════════════════
+   FeelFit — Capacitor mobile layer (styles/mobile.css)
+   ════════════════════════════════════════════════════════════════════════════
+   All rules here are scoped under <html.is-capacitor> so the WEB build is
+   completely unaffected — these styles only apply inside the Capacitor WebView.
+
+   Goals:
+   • Add safe-area insets so content isn't hidden under the notch / home indicator
+   • Add a sticky bottom navigation bar for thumb-friendly navigation
+   • Increase tap target sizes (Apple HIG: ≥ 44pt)
+   • Smooth, native-feeling page transitions
+   • Prevent text selection on UI chrome (feels more "app-like")
+   • Disable overscroll/bounce except where pull-to-refresh is wired
+   • Cap text-size-adjust so iOS doesn't blow up text in landscape
+   ════════════════════════════════════════════════════════════════════════════ */
+
+html.is-capacitor {
+  /* Safe-area insets. The @capacitor-community/safe-area plugin injects
+     --safe-area-inset-* custom properties (the app runs edge-to-edge on
+     Android, where env(safe-area-inset-*) is always 0 — only iOS WebKit
+     populates env()). Prefer the plugin's values, fall back to env(). */
+  --sat: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --sab: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --sal: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
+  --sar: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
+
+  /* Bigger hit target for everything interactive */
+  --tap-min: 44px;
+
+  /* Native bottom nav height (icon + label + safe-area) */
+  --bottom-nav-h: calc(64px + var(--sab));
+
+  /* Tighter display radius — feels more native than the desktop 26/34px */
+  --r: 12px;
+  --rm: 14px;
+  --rl: 18px;
+  --rxl: 22px;
+  --rxxl: 28px;
+
+  /* Disable text-size-adjust so headings don't grow when rotating */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  /* Disable the iOS callout/selection on UI chrome — keep it for content text */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.is-capacitor body {
+  /* Disable the rubber-band overscroll on the document body — pull-to-refresh
+     is wired explicitly via usePullToRefresh on scrollable surfaces. */
+  overscroll-behavior-y: contain;
+  /* Allow momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+  /* Prevent long-press image save on chrome */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* But allow selection inside content bodies (results, articles, AskFit answers) */
+html.is-capacitor .selectable,
+html.is-capacitor .selectable * {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Bump every interactive control to ≥ 44pt */
+html.is-capacitor button,
+html.is-capacitor [role="button"],
+html.is-capacitor .btn,
+html.is-capacitor a.btn {
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  /* Keep the visual padding tight but the touch area large */
+  box-sizing: border-box;
+}
+
+/* Sticky top header needs to honor the status bar notch */
+html.is-capacitor header[style*="sticky"],
+html.is-capacitor header[style*="position: sticky"] {
+  /* Add top inset by translating the whole header down. We can't easily mutate
+     the inline styles of the existing Navbar, so we offset the sticky position. */
+  top: var(--sat) !important;
+  padding-top: 6px !important;
+}
+
+/* Main content gets bottom padding so the floating AskFit FAB and bottom nav
+   don't overlap the footer */
+html.is-capacitor main {
+  padding-bottom: calc(var(--bottom-nav-h) + 12px) !important;
+}
+
+/* Footer shouldn't be visible on Capacitor — the bottom nav replaces it. */
+html.is-capacitor footer {
+  display: none !important;
+}
+
+/* ── Floating AskFit button: hidden on Capacitor ───────────────────────────
+   AskFit already has a dedicated bottom-nav tab — the FAB would be a
+   duplicate entry point, cover content, and its infinite pulse animation
+   costs GPU every frame. Web keeps the FAB. */
+html.is-capacitor .askfit-fab,
+html.is-capacitor button[title*="AskFit"] {
+  display: none !important;
+}
+
+/* ── Active-state feedback (no 300ms delay, feels instant) ─────────────────── */
+html.is-capacitor button:active,
+html.is-capacitor [role="button"]:active,
+html.is-capacitor .btn:active {
+  transform: scale(0.97);
+  transition: transform 90ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── Pull-to-refresh indicator (used by usePullToRefresh hook) ─────────────── */
+.ff-ptr-indicator {
+  position: absolute;
+  top: calc(var(--sat) + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-60px);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--surf2);
+  border: 1px solid var(--bd2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 200;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.ff-ptr-indicator.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.ff-ptr-indicator.spinning svg {
+  animation: ff-spin 700ms linear infinite;
+}
+@keyframes ff-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Bottom Navigation ─────────────────────────────────────────────────────── */
+.ff-bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 95;
+  display: flex;
+  align-items: stretch;
+  height: var(--bottom-nav-h);
+  padding: 0 max(var(--sal, 0px), 8px) 0 max(var(--sar, 0px), 8px);
+  padding-bottom: var(--sab);
+  background: var(--capsule-bg, rgba(255, 255, 255, 0.92));
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-top: 1px solid var(--bd2, rgba(0, 0, 0, 0.08));
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 -8px 24px rgba(0, 0, 0, 0.06);
+  /* The navbar appears with a smooth slide-up */
+  animation: ff-bottom-nav-enter 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Theme note: the light/dark class lives on the app's ROOT DIV (className
+   "light" in light mode, empty in dark), never on <html> — so theme-aware
+   rules must key off `.light .ff-bottom-nav` with dark as the default. */
+html.is-capacitor .ff-bottom-nav {
+  --capsule-bg: rgba(22, 26, 30, 0.88);
+  --bd2: rgba(255, 255, 255, 0.10);
+}
+html.is-capacitor .light .ff-bottom-nav {
+  --capsule-bg: rgba(255, 255, 255, 0.92);
+  --bd2: rgba(0, 0, 0, 0.08);
+}
+@keyframes ff-bottom-nav-enter {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.ff-bottom-nav-item {
+  flex: 1 1 0;
+  min-width: 0;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 2px 6px;
+  color: var(--txt3, rgba(0, 0, 0, 0.45));
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  position: relative;
+  transition: color 180ms ease, transform 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.ff-bottom-nav-item .ff-bn-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms ease;
+}
+.ff-bottom-nav-item.active {
+  /* var(--txt) is inherited from the themed root div, so it already flips
+     with light/dark correctly. */
+  color: var(--txt, #fff);
+}
+.ff-bottom-nav-item.active .ff-bn-icon {
+  transform: translateY(-2px) scale(1.08);
+  background: var(--accent-bg, rgba(13, 148, 136, 0.14));
+}
+.ff-bottom-nav-item:active .ff-bn-icon {
+  transform: scale(0.92);
+}
+
+/* Spring-in "pill" highlight under the active icon */
+.ff-bottom-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent, #111);
+  animation: ff-bn-pill 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes ff-bn-pill {
+  from { width: 0; opacity: 0; }
+  to   { width: 18px; opacity: 1; }
+}
+
+/* ── Mobile-friendly hero / typography ─────────────────────────────────────── */
+html.is-capacitor h1 {
+  font-size: clamp(1.9rem, 8vw, 2.6rem) !important;
+  letter-spacing: -0.03em !important;
+}
+html.is-capacitor h2 {
+  font-size: clamp(1.4rem, 5.5vw, 1.8rem) !important;
+}
+html.is-capacitor h3 {
+  font-size: 1.1rem !important;
+}
+
+/* Tighten the giant hero spacing on small screens */
+html.is-capacitor .animate-fadeUp {
+  animation-duration: 420ms !important;
+}
+
+/* Drop zones are way smaller on mobile — no need for 3.5rem padding */
+html.is-capacitor .glass-panel-elevated {
+  padding: 2rem 1.25rem !important;
+}
+
+/* Make 3-col feature grids stack on narrow screens */
+html.is-capacitor .ff-feature-grid-3 {
+  grid-template-columns: 1fr !important;
+  gap: 8px !important;
+}
+
+/* Force input font-size ≥ 16px so iOS Safari doesn't auto-zoom on focus */
+html.is-capacitor input,
+html.is-capacitor textarea,
+html.is-capacitor select {
+  font-size: 16px !important;
+}
+
+/* Modal sizing: take the full screen on phones */
+html.is-capacitor .ff-modal-shell {
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Results panel: comfortable reading line-height on small screens */
+html.is-capacitor .ff-results-body {
+  line-height: 1.7 !important;
+  font-size: 14.5px !important;
+}
+
+/* ── Reduced-motion respect (accessibility) ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html.is-capacitor *,
+  html.is-capacitor *::before,
+  html.is-capacitor *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Hardware-accelerated page transition (used by PageTransition in motion.tsx) ──
+   We pair the Framer Motion variant with translate3d + will-change so the
+   GPU composites the layer instead of repainting on the main thread. */
+html.is-capacitor .ff-page-transition {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* ── iOS-specific: respect the "Display Zoom" + larger text settings ───────── */
+@supports (-webkit-touch-callout: none) {
+  html.is-capacitor {
+    /* iOS WKWebView already supports env(safe-area-inset-*) natively */
+  }
+}
+
+/* ── Android-specific: slightly heavier shadow for material-like depth ─────── */
+@media (prefers-color-scheme: light) {
+  html.is-capacitor .ff-bottom-nav {
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08), 0 -1px 0 rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Iteration 2-4 additions
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Bottom sheet — slide-up modal pattern (used by Modal on Capacitor) ────── */
+html.is-capacitor .ff-bottom-sheet {
+  /* Honor the home indicator / gesture bar */
+  padding-bottom: var(--sab, 0px);
+  /* iOS rubber-band scroll inside the sheet body */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Sticky navbar: account for the status bar inset properly ──────────────── */
+/* The original Navbar uses position: sticky with top: 0. On Capacitor we need
+   to push it below the OS status bar. We use a CSS variable approach so the
+   JS doesn't need to know about this. */
+html.is-capacitor header[style*="position: sticky"],
+html.is-capacitor header[style*="position:sticky"] {
+  top: var(--sat, env(safe-area-inset-top, 0px)) !important;
+  padding-top: 6px !important;
+  transition: top 0.2s ease;
+}
+
+/* ── Hero text: smaller line-height on mobile to keep the headline tight ──── */
+html.is-capacitor h1 {
+  line-height: 1.15 !important;
+}
+
+/* ── Three-column hero preview → single column on narrow phones ────────────── */
+@media (max-width: 640px) {
+  html.is-capacitor .glass-panel-elevated[style*="grid-template-columns: minmax(0,1fr) auto minmax(0,1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+/* ── Dashboard "Report History" + "Test Trends" side-by-side → stacked ────── */
+@media (max-width: 720px) {
+  html.is-capacitor div[style*="grid-template-columns: repeat(auto-fit, minmax(380px, 1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Plan picker grid → single column on phones ───────────────────────────── */
+@media (max-width: 480px) {
+  html.is-capacitor div[style*="grid-template-columns: repeat(2, minmax(0, 1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Profile editor grid → single column on phones ────────────────────────── */
+@media (max-width: 480px) {
+  html.is-capacitor div[style*="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr))"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ── Footer grid → single column on phones ────────────────────────────────── */
+@media (max-width: 720px) {
+  html.is-capacitor footer div[style*="grid-template-columns: minmax(220px, 1.4fr) repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  /* Footer is hidden on Capacitor (bottom nav replaces it), but if it ever
+     shows up (e.g. via CSS debugging), make sure it doesn't overflow. */
+}
+
+/* ── Skeleton loading animation (used by lazy Suspense fallback) ───────────── */
+@keyframes ff-skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+/* ── Better tap feedback on Cards (used widely) ────────────────────────────── */
+html.is-capacitor .glass-panel-elevated:active {
+  transform: scale(0.99);
+  transition: transform 120ms ease;
+}
+
+/* ── Pull-to-refresh: disable overscroll on the body so PTR takes over ─────── */
+html.is-capacitor body {
+  overscroll-behavior-y: contain;
+}
+
+/* ── Selection styling — feel native, only allow on content text ───────────── */
+html.is-capacitor ::selection {
+  background: var(--accent);
+  color: var(--bg1);
+}
+
+/* ── Better focus ring for accessibility on touch ──────────────────────────── */
+html.is-capacitor button:focus-visible,
+html.is-capacitor a:focus-visible,
+html.is-capacitor input:focus-visible,
+html.is-capacitor select:focus-visible,
+html.is-capacitor textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Hide the AskFit FAB's pulsing aura on reduced-motion ──────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html.is-capacitor .askfit-fab [aria-hidden="true"] {
+    animation: none !important;
+  }
+}
+
+/* ── Bottom sheet body: make text selectable so users can copy reports ────── */
+html.is-capacitor .ff-bottom-sheet,
+html.is-capacitor .ff-bottom-sheet * {
+  -webkit-user-select: text;
+  user-select: text;
+}
+html.is-capacitor .ff-bottom-sheet button,
+html.is-capacitor .ff-bottom-sheet [role="button"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Iteration 5 — WebView performance + header-less chrome + premium motion
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ── A. GPU relief: kill the effects that cost the most inside a WebView ────
+   The two body::before/::after "nebula" layers are 60-75% of the viewport,
+   blurred at 90px AND animated forever — the WebView recomposites those huge
+   blurred textures every frame. A static soft gradient reads identically at
+   a tiny fraction of the cost. */
+html.is-capacitor body::before,
+html.is-capacitor body::after {
+  animation: none !important;
+  filter: none !important;
+  opacity: 0.55;
+}
+
+/* Infinite decorative loops → frozen (the gradient itself still shows). */
+html.is-capacitor .gradient-text,
+html.is-capacitor .gradient-text-vivid,
+html.is-capacitor .shimmer-text,
+html.is-capacitor .animate-float,
+html.is-capacitor .animate-heartbeat,
+html.is-capacitor .animate-glow-pulse {
+  animation: none !important;
+}
+html.is-capacitor .askfit-aura::before {
+  animation: none !important;
+  filter: blur(5px);
+  opacity: 0.28;
+}
+
+/* backdrop-filter re-blurs everything behind the layer on every scrolled
+   frame. Cards get a plain surface; the bottom nav keeps a light 10px blur
+   over a near-opaque background so it still reads as glass. */
+html.is-capacitor .glass,
+html.is-capacitor .glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html.is-capacitor .ff-bottom-nav {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* Near-opaque surface (cheap) — dark default, light override below. */
+  background: rgba(20, 23, 27, 0.97);
+  transform: translateZ(0);
+}
+html.is-capacitor .light .ff-bottom-nav {
+  background: rgba(255, 255, 255, 0.97);
+}
+
+/* ── B. Header-less mobile chrome ───────────────────────────────────────────
+   The 5-tab bottom nav + "More" sheet covers every destination, so the web
+   navbar is hidden entirely on Capacitor. Content starts below the status
+   bar via safe-area padding. */
+html.is-capacitor header {
+  display: none !important;
+}
+html.is-capacitor main {
+  padding-top: calc(var(--sat) + 12px) !important;
+}
+
+/* ── C. Premium motion polish ───────────────────────────────────────────────
+   The active-tab background is now a framer-motion layoutId pill that glides
+   between tabs (see BottomNav.tsx); this is its surface. */
+.ff-bn-active-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: var(--accent-bg, rgba(13, 148, 136, 0.14));
+  z-index: 0;
+}
+html.is-capacitor .ff-bottom-nav-item .ff-bn-icon > * {
+  position: relative;
+  z-index: 1;
+}
+/* The static background is replaced by the animated pill above. */
+html.is-capacitor .ff-bottom-nav-item.active .ff-bn-icon {
+  background: none;
+}
+
+/* "More" sheet (Navbar menu, repositioned above the bottom nav on Capacitor) */
+html.is-capacitor .ff-more-sheet {
+  position: fixed !important;
+  top: auto !important;
+  bottom: calc(var(--bottom-nav-h) + 12px) !important;
+  left: 10px !important;
+  right: 10px !important;
+  width: auto !important;
+  margin: 0 !important;
+  transform-origin: bottom center !important;
+  border-radius: 24px !important;
+  max-height: 70vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+

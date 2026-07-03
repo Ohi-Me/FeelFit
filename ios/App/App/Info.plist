@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>CFBundleDevelopmentRegion</key>
+        <string>en</string>
+        <key>CFBundleDisplayName</key>
+        <string>FeelFit</string>
+        <key>CFBundleExecutable</key>
+        <string>$(EXECUTABLE_NAME)</string>
+        <key>CFBundleIdentifier</key>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+        <key>CFBundleInfoDictionaryVersion</key>
+        <string>6.0</string>
+        <key>CFBundleName</key>
+        <string>$(PRODUCT_NAME)</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        <key>CFBundleShortVersionString</key>
+        <string>$(MARKETING_VERSION)</string>
+        <key>CFBundleVersion</key>
+        <string>$(CURRENT_PROJECT_VERSION)</string>
+        <key>LSRequiresIPhoneOS</key>
+        <true/>
+
+        <!-- App uses ATS-secure HTTPS to talk to the FeelFit backend -->
+        <key>NSAppTransportSecurity</key>
+        <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <false/>
+                <!-- Local dev exception: allow cleartext to localhost so the
+                     simulator can reach a dev FastAPI on the host. -->
+                <key>NSExceptionDomains</key>
+                <dict>
+                        <key>localhost</key>
+                        <dict>
+                                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                                <true/>
+                                <key>NSIncludesSubdomains</key>
+                                <true/>
+                        </dict>
+                </dict>
+        </dict>
+
+        <!-- ── Privacy usage descriptions (required by App Store review) ─────── -->
+        <key>NSCameraUsageDescription</key>
+        <string>FeelFit uses the camera so you can photograph your lab report for AI-powered insights.</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>FeelFit needs access to your photo library so you can upload existing photos of your lab reports.</string>
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>FeelFit can save the photos you take of lab reports back to your library for easy reuse.</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>FeelFit uses your location to find doctors and clinics near you.</string>
+        <key>NSFaceIDUsageDescription</key>
+        <string>FeelFit can use Face ID to quickly unlock the app and protect your health data.</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>FeelFit uses the microphone so you can speak your AskFit questions aloud.</string>
+        <key>NSUserNotificationsUsageDescription</key>
+        <string>FeelFit sends reminders for medication, retest dates, and health check-ins.</string>
+
+        <!-- ── Launch / orientation ─────────────────────────────────────────── -->
+        <key>UILaunchStoryboardName</key>
+        <string>LaunchScreen</string>
+        <key>UIMainStoryboardFile</key>
+        <string>Main</string>
+        <key>UIRequiredDeviceCapabilities</key>
+        <array>
+                <string>arm64</string>
+        </array>
+        <key>UISupportedInterfaceOrientations</key>
+        <array>
+                <string>UIInterfaceOrientationPortrait</string>
+                <string>UIInterfaceOrientationLandscapeLeft</string>
+                <string>UIInterfaceOrientationLandscapeRight</string>
+        </array>
+        <key>UISupportedInterfaceOrientations~ipad</key>
+        <array>
+                <string>UIInterfaceOrientationPortrait</string>
+                <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                <string>UIInterfaceOrientationLandscapeLeft</string>
+                <string>UIInterfaceOrientationLandscapeRight</string>
+        </array>
+
+        <!-- Status bar — feel native, hide on splash, show on app ready -->
+        <key>UIViewControllerBasedStatusBarAppearance</key>
+        <true/>
+        <key>UIStatusBarStyle</key>
+        <string>UIStatusBarStyleDarkContent</string>
+        <key>UIStatusBarHidden</key>
+        <false/>
+
+        <!-- Push notifications: register for sound + alert + badge -->
+        <key>UIBackgroundModes</key>
+        <array>
+                <string>remote-notification</string>
+                <string>fetch</string>
+        </array>
+        <key>FirebaseAppDelegateProxyEnabled</key>
+        <true/>
+</dict>
+</plist>

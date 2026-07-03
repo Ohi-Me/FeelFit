@@ -1,0 +1,41 @@
+# ── Web Framework ─────────────────────────────────────────────────────────────
+fastapi
+uvicorn[standard]
+python-multipart
+
+# ── HTTP Client ───────────────────────────────────────────────────────────────
+httpx
+
+# ── Data Validation ───────────────────────────────────────────────────────────
+pydantic
+pydantic-settings
+
+# ── PDF Extraction ────────────────────────────────────────────────────────────
+pdfplumber
+PyMuPDF
+
+# ── OCR + Image Processing ────────────────────────────────────────────────────
+# PaddleOCR = primary engine (table-grade, much better on lab reports).
+# Tesseract (pytesseract) is kept as an automatic fallback.
+paddleocr>=2.6,<2.8
+paddlepaddle>=2.5,<2.7
+pytesseract
+Pillow
+opencv-python-headless
+numpy
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv
+aiofiles
+
+# ── Auth ──────────────────────────────────────────────────────────────────────
+# Verifies Firebase phone-auth ID tokens for phone/OTP sign-in. No service
+# account/credentials needed — only public-key signature verification.
+google-auth
+
+# Rejects disposable/temp-mail signups and catches typo'd/nonexistent domains
+# via an MX record lookup (fails open on DNS errors/timeouts).
+dnspython
+
+# ── CSV support built into Python stdlib (csv, io modules) ───────────────────
+# No extra package needed for CSV parsing
