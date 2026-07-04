@@ -12,6 +12,8 @@ from typing import List, Optional
 
 import httpx
 
+from llm import router
+
 from schemas.analysis import (
     AnalysisOutput, AbnormalTest, TestStatus, RiskLevel,
     TestTrend, Alert, ExtractedTest, UserProfile
@@ -167,65 +169,28 @@ async def call_groq(
     file_bytes: Optional[bytes] = None,
     mime_type: Optional[str] = None,
     max_tokens: int = 4096,
+    task: str = "analysis",
+    tier: str = "free",
 ) -> str:
-    """Call Groq API with optional file attachment (PDF/image)."""
-    api_key = os.environ.get("GROQ_API_KEY")
-    if not api_key:
-        raise RuntimeError("GROQ_API_KEY environment variable is not set")
+    """Route a JSON-mode completion through the AI model router.
 
-    content = []
-    model = "llama-3.3-70b-versatile"
-
-    # Attach file if provided (vision/document grounding)
-    if file_bytes and mime_type:
-        model = "meta-llama/llama-4-scout-17b-16e-instruct"
-        b64 = base64.b64encode(file_bytes).decode()
-        if mime_type == "application/pdf":
-            # For PDF, if Groq vision doesn't natively support PDF, it's better to pass text
-            # But according to spec we try to pass it as an image if it was converted, or as data URI.
-            # Assuming the backend converts it to image or we send PDF data URI if Groq supports it.
-            # For safety, let's format it as an image URL if it's an image, or drop if it's PDF and rely on text extraction.
-            # Actually, standard OpenAI vision takes image_url.
-            content.append({
-                "type": "text", "text": "Please note this is a PDF report data."
-            })
-        elif mime_type.startswith("image/"):
-            content.append({
-                "type": "image_url",
-                "image_url": {"url": f"data:{mime_type};base64,{b64}"}
-            })
-
-    content.append({"type": "text", "text": prompt})
-
-    async with httpx.AsyncClient(timeout=90.0) as client:
-        r = await client.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {api_key}"
-            },
-            json={
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": content}
-                ],
-                "response_format": {"type": "json_object"},
-                "temperature": 0.1,
-                "max_tokens": max_tokens,
-            }
-        )
-
-    if r.status_code != 200:
-        logger.error(f"Groq API Error: {r.text}")
-        raise RuntimeError(f"Groq API {r.status_code}: {r.text[:300]}")
-
-    data = r.json()
-    try:
-        return data["choices"][0]["message"]["content"].strip()
-    except (KeyError, IndexError) as e:
-        logger.error(f"Unexpected Groq response format: {data}")
-        raise RuntimeError(f"Invalid Groq response format: {e}")
+    Historic name kept (every call site uses it) — but this no longer talks
+    only to Groq: the router picks Groq/Gemini per task+tier and falls back
+    across providers on rate limits or outages (see llm/router.py). Calls
+    with an attachment are routed as vision work.
+    """
+    routed_task = "vision" if (file_bytes and mime_type) else task
+    return await router.complete(
+        prompt,
+        task=routed_task,
+        tier=tier,
+        system=SYSTEM_PROMPT,
+        json_mode=True,
+        file_bytes=file_bytes,
+        mime_type=mime_type,
+        max_tokens=max_tokens,
+        temperature=0.1,
+    )
 
 
 async def call_groq_search(prompt: str, max_tokens: int = 1024) -> Optional[dict]:
@@ -298,16 +263,14 @@ async def generate_rag_answer(
     medications: Optional[List[str]] = None,
     history: Optional[List[dict]] = None,
     attachment: Optional[str] = None,
+    tier: str = "free",
 ) -> str:
     """
     Generate a warm, helpful health answer. Uses retrieved evidence as reference notes
     plus the model's general health knowledge, grounded in the person's context and the
-    ongoing conversation. Plain-text output.
+    ongoing conversation. Plain-text output. Premium tier routes to the
+    deeper-reasoning chain with a longer answer budget.
     """
-    api_key = os.environ.get("GROQ_API_KEY")
-    if not api_key:
-        raise RuntimeError("GROQ_API_KEY environment variable is not set")
-
     ctx_bits: List[str] = []
     if age:
         ctx_bits.append(f"age {age}")
@@ -344,27 +307,17 @@ async def generate_rag_answer(
         f"Give a warm, clear, genuinely helpful answer."
     )
 
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        r = await client.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
-            json={
-                "model": "llama-3.3-70b-versatile",
-                "messages": [
-                    {"role": "system", "content": COPILOT_SYSTEM_PROMPT},
-                    {"role": "user", "content": user_content},
-                ],
-                "temperature": 0.4,
-                "max_tokens": 650,
-            },
-        )
-
-    if r.status_code != 200:
-        logger.error(f"Groq Copilot error: {r.text[:300]}")
-        raise RuntimeError(f"Groq API {r.status_code}")
-
-    data = r.json()
-    return data["choices"][0]["message"]["content"].strip()
+    # Routed: Groq-fast for free users, deeper-reasoning chain (+ a longer
+    # answer budget) for premium — with automatic cross-provider fallback.
+    return await router.complete(
+        user_content,
+        task="chat",
+        tier=tier,
+        system=COPILOT_SYSTEM_PROMPT,
+        json_mode=False,
+        temperature=0.4,
+        max_tokens=1100 if tier == "premium" else 650,
+    )
 
 
 def parse_llm_json(raw: str) -> dict:
@@ -747,7 +700,8 @@ async def run_llm_pipeline(
     trends: Optional[List[TestTrend]],
     file_bytes: Optional[bytes] = None,
     mime_type: Optional[str] = None,
-    max_retries: int = 3
+    max_retries: int = 3,
+    premium: bool = False,
 ) -> tuple[AnalysisOutput, bool]:
     """
     Run LLM pipeline with retry logic.
@@ -771,7 +725,7 @@ async def run_llm_pipeline(
             fb = file_bytes if attempt == 1 else None
             mt = mime_type if attempt == 1 else None
 
-            raw = await call_groq(prompt, fb, mt)
+            raw = await call_groq(prompt, fb, mt, tier="premium" if premium else "free")
             parsed = parse_llm_json(raw)
 
             # Inject computed trends if LLM omitted them

@@ -66,6 +66,8 @@ function authHeaders(extra: Record<string, string> = {}): Record<string, string>
 
 export interface Plan {
   id: string; label: string; price: number; seconds: number; period: string;
+  /** Pre-discount anchor price — shown struck-through with a computed save-% badge. */
+  original?: number;
 }
 
 export interface UsageStatus {
@@ -76,10 +78,10 @@ export interface UsageStatus {
 
 // Front-end fallback plan ladder (kept in sync with backend account_service.PLANS).
 export const PLANS: Plan[] = [
-  { id: 'day',    label: 'Day Pass', price: 19,   seconds: 86400,    period: 'for 24 hours' },
-  { id: 'week',   label: 'Weekly',   price: 89,   seconds: 604800,   period: 'per week' },
-  { id: 'month',  label: 'Monthly',  price: 349,  seconds: 2592000,  period: 'per month' },
-  { id: 'yearly', label: 'Yearly',   price: 1999, seconds: 31536000, period: 'per year' },
+  { id: 'day',    label: 'Day Pass', price: 19,                    seconds: 86400,    period: 'for 24 hours' },
+  { id: 'week',   label: 'Weekly',   price: 89,   original: 99,    seconds: 604800,   period: 'per week' },
+  { id: 'month',  label: 'Monthly',  price: 349,  original: 449,   seconds: 2592000,  period: 'per month' },
+  { id: 'yearly', label: 'Yearly',   price: 1999, original: 2999,  seconds: 31536000, period: 'per year' },
 ];
 
 export async function getUsage(): Promise<UsageStatus> {

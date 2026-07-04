@@ -15,6 +15,11 @@ const config = {
   // only uses the file-system root and the client-side API layer.
   output: isMobile ? 'export' : 'standalone',
 
+  // Mobile builds get their own build dir. Sharing .next with `next dev`
+  // corrupts the dev server's chunk manifest whenever a mobile export runs
+  // alongside it (symptom: ChunkLoadError on lazy tabs like AskFit).
+  distDir: isMobile ? '.next-mobile' : '.next',
+
   // Capacitor WebView can't optimize images via the Next.js server, so we ship
   // them as-is. (Unoptimized images also render fine on the web build.)
   images: { unoptimized: true },

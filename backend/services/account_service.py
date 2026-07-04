@@ -30,16 +30,20 @@ _STORE = _DATA / "accounts.json"
 _lock = Lock()
 
 FREE_LIMIT = int(os.environ.get("FREE_REPORT_LIMIT", "2"))
+# Extra free analyses unlocked by creating an account (2 anonymous + 1 = 3).
+SIGNUP_BONUS = int(os.environ.get("SIGNUP_BONUS_ANALYSES", "1"))
 PASS_SECONDS = 24 * 3600
 PRICE_INR = int(os.environ.get("DAY_PASS_PRICE_INR", "9"))
 
 _DAY = 24 * 3600
-# Subscription plans (INR).
+# Subscription plans (INR). `original` = pre-discount anchor price shown
+# struck-through in the plan picker; the save-% badge is computed from it
+# client-side so the numbers can never drift apart. Charged amount is `price`.
 PLANS: dict[str, dict] = {
-    "day":    {"id": "day",    "label": "Day Pass", "price": 19,   "seconds": _DAY,      "period": "for 24 hours"},
-    "week":   {"id": "week",   "label": "Weekly",   "price": 89,   "seconds": 7 * _DAY,  "period": "per week"},
-    "month":  {"id": "month",  "label": "Monthly",  "price": 349,  "seconds": 30 * _DAY, "period": "per month"},
-    "yearly": {"id": "yearly", "label": "Yearly",   "price": 1999, "seconds": 365 * _DAY, "period": "per year"},
+    "day":    {"id": "day",    "label": "Day Pass", "price": 19,                     "seconds": _DAY,       "period": "for 24 hours"},
+    "week":   {"id": "week",   "label": "Weekly",   "price": 89,   "original": 99,   "seconds": 7 * _DAY,   "period": "per week"},
+    "month":  {"id": "month",  "label": "Monthly",  "price": 349,  "original": 449,  "seconds": 30 * _DAY,  "period": "per month"},
+    "yearly": {"id": "yearly", "label": "Yearly",   "price": 1999, "original": 2999, "seconds": 365 * _DAY, "period": "per year"},
 }
 
 
@@ -171,18 +175,42 @@ def incr_usage(identity: str) -> int:
         return d["usage"][identity]
 
 
-def remaining_free(identity: str) -> int:
-    return max(0, FREE_LIMIT - usage_count(identity))
+def free_limit_for(email: str | None) -> int:
+    """Anonymous visitors get FREE_LIMIT analyses; having an account unlocks
+    SIGNUP_BONUS more. Pair with adopt_anonymous_usage() at sign-in so the
+    bonus is literally +1 — not a fresh allowance on top of anonymous use."""
+    return FREE_LIMIT + (SIGNUP_BONUS if email else 0)
+
+
+def remaining_free(identity: str, email: str | None = None) -> int:
+    return max(0, free_limit_for(email) - usage_count(identity))
+
+
+def adopt_anonymous_usage(email: str, anon_identity: str) -> None:
+    """Carry this device's anonymous usage into the account at sign-in/up.
+    Without this, 'sign up for 1 more free analysis' would silently grant a
+    fresh 3 (anonymous count lives under ip:<addr>, account count under the
+    email) — with it, 2 used anonymously → the account starts at 2/3 used."""
+    email = (email or "").lower().strip()
+    if not email or not anon_identity or anon_identity == email:
+        return
+    with _lock:
+        d = _load()
+        used_anon = d["usage"].get(anon_identity, 0)
+        if used_anon > d["usage"].get(email, 0):
+            d["usage"][email] = used_anon
+            _save(d)
 
 
 def status(identity: str, email: str | None = None) -> dict:
     d = _load()
     exp = d["passes"].get(identity, 0)
+    limit = free_limit_for(email)
     return {
         "email": email,
         "free_used": d["usage"].get(identity, 0),
-        "free_limit": FREE_LIMIT,
-        "remaining_free": max(0, FREE_LIMIT - d["usage"].get(identity, 0)),
+        "free_limit": limit,
+        "remaining_free": max(0, limit - d["usage"].get(identity, 0)),
         "is_paid": exp > time.time(),
         "pass_expires": exp if exp > time.time() else None,
         "price_inr": PRICE_INR,

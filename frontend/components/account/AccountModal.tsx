@@ -28,6 +28,11 @@ function PlanPicker({ plans, busy, onBuy }: { plans: Plan[]; busy: boolean; onBu
         {plans.map(p => {
           const active = p.id === sel;
           const featured = p.id === 'month';
+          // Save-% derives from the actual prices so the badge can never
+          // disagree with the numbers shown (e.g. 499→349 = 30% off).
+          const savePct = p.original && p.original > p.price
+            ? Math.round((1 - p.price / p.original) * 100)
+            : 0;
           return (
             <motion.button key={p.id} onClick={() => setSel(p.id)}
               whileHover={{ y: -3 }} whileTap={{ scale: 0.985 }} transition={{ type: 'spring', stiffness: 360, damping: 24 }}
@@ -44,6 +49,13 @@ function PlanPicker({ plans, busy, onBuy }: { plans: Plan[]; busy: boolean; onBu
                 <span style={{ position: 'absolute', top: 0, left: 0, right: 0, fontSize: 8.5, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '5px 0', background: 'var(--ok)', color: '#fff' }}>Most Popular</span>
               )}
               <div style={{ fontSize: 13, fontWeight: 600, color: active ? 'var(--ok)' : 'var(--txt2)', marginBottom: 8 }}>{p.label}</div>
+              {/* Struck-through anchor price + save badge (discounted plans only) */}
+              {savePct > 0 && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center', marginBottom: 2 }}>
+                  <span style={{ fontSize: 12.5, color: 'var(--txt4)', textDecoration: 'line-through', textDecorationColor: 'var(--danger)', textDecorationThickness: 1.5 }}>₹{p.original}</span>
+                  <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.05em', padding: '2.5px 7px', borderRadius: 999, background: 'var(--ok-bg)', border: '1px solid var(--ok)', color: 'var(--ok)' }}>{savePct}% OFF</span>
+                </div>
+              )}
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 3, justifyContent: 'center' }}>
                 <span style={{ fontFamily: 'var(--ff)', fontWeight: 700, fontSize: '1.95rem', lineHeight: 1, color: 'var(--txt)' }}>₹{p.price}</span>
                 <span style={{ fontSize: 11.5, color: 'var(--txt3)' }}>/{p.id === 'day' ? 'day' : p.id === 'week' ? 'wk' : p.id === 'month' ? 'mo' : 'yr'}</span>
@@ -127,7 +139,7 @@ export function AccountModal({ usage, paywall, onClose, onChange }: Props) {
                     {needSignin ? 'Almost there — sign in to complete your purchase' : 'Sign in or create your free account'}
                   </div>
                   <p style={{ fontSize: 12, color: 'var(--txt3)', lineHeight: 1.6 }}>
-                    Save your history and reports across devices — no purchase needed.
+                    Unlock 1 extra free analysis and keep your history across devices — no purchase needed.
                   </p>
                 </div>
                 <GoogleSignIn onSignedIn={onChange} onError={setErr} />

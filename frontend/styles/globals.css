@@ -162,7 +162,19 @@ font[style] { background: transparent !important; box-shadow: none !important; }
 
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  /* Phone browsers: any element even 1px wider than the viewport makes the
+     page horizontally pannable, revealing the raw <html> canvas as a dark
+     band beside the app (body clips its own children, html does not). Clip
+     at the html level too so the layout can never be panned sideways. */
+  overflow-x: hidden;
+  /* The page.tsx theme wrapper is a DIV, so the html canvas itself would
+     otherwise stay the :root (dark) palette — visible as black in overscroll
+     and overflow bands. page.tsx keeps this in sync with the active theme. */
+  background: #f4f4f6;
+}
 
 body {
   font-family: var(--fb);
@@ -773,4 +785,31 @@ button {
 @keyframes fadeUpIn {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Phone-browser layout fixes (mobile WEB — not the Capacitor app, which has
+   its own layer in mobile.css). Wide fixed-min grids force horizontal
+   overflow on narrow viewports; collapse them the same way the app does.
+   ════════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 720px) {
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(380px, 1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+  footer div[style*="grid-template-columns: minmax(220px, 1.4fr) repeat(3, 1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+@media (max-width: 640px) {
+  /* Hero "report → meaning" preview: 3-col with center arrow → stacked.
+     NOTE: React serializes the inline style with px units, so the attribute
+     literally contains "minmax(0px, 1fr)". */
+  .glass-panel-elevated[style*="minmax(0px, 1fr) auto minmax(0px, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
 }

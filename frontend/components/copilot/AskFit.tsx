@@ -130,7 +130,8 @@ export function AskFit({ isPaid = false, onUpgrade }: { isPaid?: boolean; onUpgr
 
   useEffect(() => {
     try { setAsks(parseInt(localStorage.getItem('askfit_asks') || '0', 10) || 0); } catch {}
-    const t = setTimeout(() => setOpening(false), 1100);
+    haptic('light');
+    const t = setTimeout(() => setOpening(false), 1450);
     return () => clearTimeout(t);
   }, []);
   // Scroll WITHIN the chat container (never the whole page) so we stay put.
@@ -329,31 +330,49 @@ export function AskFit({ isPaid = false, onUpgrade }: { isPaid?: boolean; onUpgr
           <motion.div key="askfit-opener"
             initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}
             style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10, overflow: 'hidden' }}>
-            {/* aura ring */}
+            {/* aura glow */}
             <motion.div
               initial={{ scale: 0.4, opacity: 0 }}
-              animate={{ scale: [0.4, 1.2, 1.6], opacity: [0, 0.55, 0] }}
-              transition={{ duration: 1.0, times: [0, 0.45, 1], ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'absolute', width: 220, height: 220, borderRadius: '50%', background: 'radial-gradient(circle, var(--askfit-glow) 0%, transparent 65%)', filter: 'blur(8px)' }} />
-            {/* central spark */}
-            <motion.div
-              initial={{ scale: 0, opacity: 0, rotate: -90 }}
-              animate={{ scale: [0, 1.15, 1], opacity: [0, 1, 0], rotate: [-90, 0, 30] }}
-              transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'relative', width: 64, height: 64, borderRadius: '50%', background: 'var(--askfit-grad)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 60px var(--askfit-glow)' }}>
-              <Icon name="sparkles" size={28} color="#fff" />
-            </motion.div>
-            {/* drifting sparks */}
-            {[0, 1, 2, 3, 4, 5].map(i => {
-              const angle = (i / 6) * Math.PI * 2;
-              const dx = Math.cos(angle) * 110;
-              const dy = Math.sin(angle) * 110;
+              animate={{ scale: [0.4, 1.2, 1.7], opacity: [0, 0.55, 0] }}
+              transition={{ duration: 1.25, times: [0, 0.45, 1], ease: [0.22, 1, 0.36, 1] }}
+              style={{ position: 'absolute', width: 240, height: 240, borderRadius: '50%', background: 'radial-gradient(circle, var(--askfit-glow) 0%, transparent 65%)', filter: 'blur(8px)' }} />
+            {/* expanding ring strokes — two waves */}
+            {[0, 0.22].map(delay => (
+              <motion.div key={delay}
+                initial={{ scale: 0.3, opacity: 0 }}
+                animate={{ scale: [0.3, 1.9], opacity: [0, 0.5, 0] }}
+                transition={{ duration: 1.1, delay, ease: 'easeOut' }}
+                style={{ position: 'absolute', width: 150, height: 150, borderRadius: '50%', border: '1.5px solid var(--askfit)', }} />
+            ))}
+            {/* central orb + wordmark */}
+            <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+              <motion.div
+                initial={{ scale: 0, opacity: 0, rotate: -90 }}
+                animate={{ scale: [0, 1.18, 1], opacity: [0, 1, 1, 0], rotate: [-90, 8, 0] }}
+                transition={{ duration: 1.3, times: [0, 0.35, 0.75, 1], ease: [0.22, 1, 0.36, 1] }}
+                style={{ width: 72, height: 72, borderRadius: '50%', background: 'var(--askfit-grad)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 70px var(--askfit-glow)' }}>
+                <Icon name="sparkles" size={32} color="#fff" />
+              </motion.div>
+              <motion.span
+                initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                animate={{ opacity: [0, 1, 1, 0], y: [10, 0, 0, -4], scale: [0.9, 1, 1, 1] }}
+                transition={{ duration: 1.25, times: [0, 0.3, 0.75, 1], delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                style={{ fontFamily: 'var(--ff)', fontWeight: 600, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--txt)' }}>
+                AskFit
+              </motion.span>
+            </div>
+            {/* drifting sparks — two staggered rings of them */}
+            {Array.from({ length: 10 }).map((_, i) => {
+              const angle = (i / 10) * Math.PI * 2 + (i % 2 ? 0.3 : 0);
+              const r = i % 2 ? 128 : 96;
+              const dx = Math.cos(angle) * r;
+              const dy = Math.sin(angle) * r;
               return (
                 <motion.span key={i}
                   initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
-                  animate={{ x: dx, y: dy, opacity: [0, 1, 0], scale: [0, 1, 0.6] }}
-                  transition={{ duration: 0.9, delay: 0.1, ease: 'easeOut' }}
-                  style={{ position: 'absolute', width: 6, height: 6, borderRadius: '50%', background: i % 2 ? 'var(--askfit-2)' : 'var(--askfit)', boxShadow: '0 0 10px currentColor', color: i % 2 ? 'var(--askfit-2)' : 'var(--askfit)' }} />
+                  animate={{ x: dx, y: dy, opacity: [0, 1, 0], scale: [0, i % 3 ? 1 : 1.4, 0.5] }}
+                  transition={{ duration: 1.0, delay: 0.08 + (i % 2) * 0.14, ease: 'easeOut' }}
+                  style={{ position: 'absolute', width: i % 3 ? 5 : 7, height: i % 3 ? 5 : 7, borderRadius: '50%', background: i % 2 ? 'var(--askfit-2)' : 'var(--askfit)', boxShadow: '0 0 12px currentColor', color: i % 2 ? 'var(--askfit-2)' : 'var(--askfit)' }} />
               );
             })}
           </motion.div>

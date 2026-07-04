@@ -107,7 +107,7 @@ async def get_medicine_info(
     async def try_groq() -> Optional[dict]:
         try:
             from llm.pipeline import call_groq, parse_llm_json
-            raw = await call_groq(f"{MEDICINE_SYSTEM}\n\n{prompt}")
+            raw = await call_groq(f"{MEDICINE_SYSTEM}\n\n{prompt}", task="utility")
             result = parse_llm_json(raw)
             result["query"] = medicine_name
             return result
@@ -224,7 +224,7 @@ async def check_drug_interactions(medicines: list[str]) -> dict:
 
     try:
         from llm.pipeline import call_groq, parse_llm_json
-        raw = await call_groq(f"{INTERACTION_SYSTEM}\n\n{prompt}")
+        raw = await call_groq(f"{INTERACTION_SYSTEM}\n\n{prompt}", task="utility")
         return parse_llm_json(raw)
 
     except Exception as e:

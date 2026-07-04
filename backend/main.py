@@ -232,6 +232,9 @@ async def auth_signup(req: SignupRequest, request: Request):
     token, err = accounts.signup(req.email, req.password)
     if err:
         raise HTTPException(400, err)
+    # Carry this device's anonymous usage into the account, so the signup
+    # bonus is exactly +1 analysis (not a fresh allowance).
+    accounts.adopt_anonymous_usage(email, "ip:" + _client_ip(request))
     _seed_profile(email, email=email, name=req.name, age=req.age, gender=req.gender)
     return {"token": token, "email": email, "status": accounts.status(email, email), "is_new_account": True}
 
@@ -242,6 +245,7 @@ async def auth_login(req: AuthRequest, request: Request):
     if err:
         raise HTTPException(401, err)
     email = req.email.lower().strip()
+    accounts.adopt_anonymous_usage(email, "ip:" + _client_ip(request))
     _seed_profile(email, email=email)
     return {"token": token, "email": email, "status": accounts.status(email, email), "is_new_account": False}
 
@@ -251,7 +255,7 @@ class GoogleAuthRequest(BaseModel):
 
 
 @app.post("/api/auth/google")
-async def auth_google(req: GoogleAuthRequest):
+async def auth_google(req: GoogleAuthRequest, request: Request):
     """Verify a Google ID token (from Google Identity Services) and sign the user in."""
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
@@ -269,6 +273,7 @@ async def auth_google(req: GoogleAuthRequest):
     if not email or not verified:
         raise HTTPException(401, "Could not verify your Google email.")
     token, is_new = accounts.oauth_login(email, name=info.get("name"))
+    accounts.adopt_anonymous_usage(email, "ip:" + _client_ip(request))
     _seed_profile(email, name=info.get("name"), email=email)
     return {"token": token, "email": email, "status": accounts.status(email, email), "is_new_account": is_new}
 
@@ -278,7 +283,7 @@ class PhoneAuthRequest(BaseModel):
 
 
 @app.post("/api/auth/phone")
-async def auth_phone(req: PhoneAuthRequest):
+async def auth_phone(req: PhoneAuthRequest, request: Request):
     """Verify a Firebase phone-auth ID token (OTP already confirmed client-side)
     and sign the user in. No SMS provider keys needed on our end — Firebase
     handles OTP delivery; we only verify the resulting ID token's signature."""
@@ -297,6 +302,7 @@ async def auth_phone(req: PhoneAuthRequest):
     if not phone:
         raise HTTPException(401, "Could not verify your phone number.")
     token, is_new = accounts.oauth_login(phone)
+    accounts.adopt_anonymous_usage(phone, "ip:" + _client_ip(request))
     _seed_profile(phone, phone=phone)
     return {"token": token, "email": phone, "status": accounts.status(phone, phone), "is_new_account": is_new}
 
@@ -537,12 +543,15 @@ async def analyze_report(
     if not allowed:
         raise HTTPException(429, "Too many requests. Please wait 60 seconds.")
 
-    # Freemium gate: free users get a few checks (via the free parser), then must
-    # log in + buy a ₹9/day pass. Paid users get unlimited checks + Gemini accuracy.
+    # Freemium gate: anonymous users get FREE_LIMIT checks; signing up unlocks
+    # SIGNUP_BONUS more (2 + 1 = 3 total). Paid users are unlimited + premium AI.
     identity, identity_email = _identity(request)
     paid_user = accounts.is_paid(identity)
-    if not paid_user and accounts.usage_count(identity) >= accounts.FREE_LIMIT:
+    if not paid_user and accounts.usage_count(identity) >= accounts.free_limit_for(identity_email):
         analytics.track(identity, "paywall_shown")
+        if identity_email is None:
+            raise HTTPException(402, "You've used your free report checks. "
+                                     "Create a free account to unlock 1 more analysis, or go unlimited with a plan.")
         raise HTTPException(402, "You've used your free report checks. "
                                  f"Upgrade to a ₹{accounts.PRICE_INR}/day pass for unlimited checks.")
 
@@ -723,6 +732,7 @@ async def analyze_report(
             text=text, tests=tests, profile=profile, trends=trends,
             file_bytes=file_bytes if not is_csv else None,
             mime_type=content_type if not is_csv else None,
+            premium=paid_user,  # premium tier routes to the deeper-reasoning chain
         )
         # If the LLM read a full list, make it authoritative and rebuild the abnormal set.
         if analysis and analysis.all_tests:
@@ -1322,6 +1332,7 @@ async def rag_retrieve(req: RagQueryRequest, request: Request):
                 medications=req.medications,
                 history=req.history,
                 attachment=req.attachment,
+                tier="premium" if accounts.is_paid(identity) else "free",
             )
         else:
             payload["answer"] = None

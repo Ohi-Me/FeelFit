@@ -357,9 +357,11 @@ html.is-capacitor h1 {
   line-height: 1.15 !important;
 }
 
-/* ── Three-column hero preview → single column on narrow phones ────────────── */
+/* ── Three-column hero preview → single column on narrow phones ──────────────
+   NOTE: React serializes the inline style with px units — the attribute
+   literally contains "minmax(0px, 1fr)". */
 @media (max-width: 640px) {
-  html.is-capacitor .glass-panel-elevated[style*="grid-template-columns: minmax(0,1fr) auto minmax(0,1fr)"] {
+  html.is-capacitor .glass-panel-elevated[style*="minmax(0px, 1fr) auto minmax(0px, 1fr)"] {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
   }

@@ -188,6 +188,16 @@ export default function App() {
     getUsage().then(setUsage).catch(() => {});
   }, []);
 
+  // Keep the raw <html>/<body> canvas in sync with the theme. The theme
+  // wrapper is a div, so without this any region outside it (horizontal
+  // overflow bands on phone browsers, overscroll glow) shows the :root
+  // dark palette — a black band next to a light app.
+  useEffect(() => {
+    const bg = dark ? '#0a0a0a' : '#f4f4f6';
+    document.documentElement.style.background = bg;
+    document.body.style.background = bg;
+  }, [dark]);
+
   // ── Mobile-only UX wires: tap-to-dismiss-keyboard + status-bar theme sync ──
   useEffect(() => {
     if (!isCapacitor()) return;
