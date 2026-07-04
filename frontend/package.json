@@ -47,7 +47,7 @@
     "@capacitor/splash-screen": "^6.0.2",
     "@capacitor/status-bar": "^6.0.1",
     "@capacitor/toast": "^6.0.2",
-    "@capgo/capacitor-native-biometric": "^5.0.1",
+    "@capgo/capacitor-native-biometric": "^6.0.4",
     "firebase": "^11.2.0",
     "framer-motion": "^11.15.0",
     "next": "^14.2.35",
