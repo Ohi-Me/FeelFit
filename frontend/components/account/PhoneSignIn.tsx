@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Input, Btn } from '@/components/ui/index';
 import { Icon } from '@/components/ui/Icon';
-import { firebaseEnabled, getFirebaseApp } from '@/lib/firebase';
+import { firebaseEnabled, getFirebaseAuth } from '@/lib/firebase';
 import { phoneSignIn, type UsageStatus } from '@/lib/api';
 import { isCapacitor, haptic } from '@/lib/native';
 import type { ConfirmationResult } from 'firebase/auth';
@@ -42,10 +42,9 @@ export function PhoneSignIn({ onSignedIn, onError }: { onSignedIn: (u: UsageStat
     if (!num) { onError('Enter a valid 10-digit mobile number.'); return; }
     onError(''); setBusy(true);
     try {
-      const app = await getFirebaseApp();
-      if (!app) throw new Error('not-configured');
-      const { getAuth, RecaptchaVerifier, signInWithPhoneNumber } = await import('firebase/auth');
-      const auth = getAuth(app);
+      const auth = await getFirebaseAuth();
+      if (!auth) throw new Error('not-configured');
+      const { RecaptchaVerifier, signInWithPhoneNumber } = await import('firebase/auth');
       // Inside Capacitor the standard invisible RecaptchaVerifier fails because
       // Google's reCAPTCHA doesn't accept capacitor://localhost as an authorized
       // domain. We pass `isMobileNative: true` to make Firebase use the
@@ -62,16 +61,29 @@ export function PhoneSignIn({ onSignedIn, onError }: { onSignedIn: (u: UsageStat
       setStep('code'); setResendIn(30);
     } catch (err) {
       haptic('error');
+      // Firebase's `.message` is frequently just "Firebase: Error (auth/<code>)."
+      // with no descriptive text (the SDK only includes verbose descriptions
+      // when the app opts into `debugErrorMap` — see lib/firebase.ts). `.code`
+      // is ALWAYS the reliable machine-readable string, so classify on that,
+      // not on substrings of a message that can be reduced to nothing useful.
+      const code = (err as { code?: string }).code || '';
       const msg = (err as Error).message || '';
+      // eslint-disable-next-line no-console
+      console.error('[PhoneSignIn] sendCode failed:', code, msg);
       if (msg === 'not-configured') onError('Phone sign-in isn’t configured yet.');
-      else if (msg.includes('too-many-requests')) onError('Too many attempts — please try again in a few minutes.');
-      else if (msg.includes('invalid-phone-number')) onError('That phone number looks invalid.');
-      else if (msg.includes('recaptcha') || msg.includes('domain')) {
+      else if (code === 'auth/too-many-requests') onError('Too many attempts — please try again in a few minutes.');
+      else if (code === 'auth/invalid-phone-number') onError('That phone number looks invalid.');
+      else if (code === 'auth/unauthorized-domain' || code === 'auth/captcha-check-failed' || code === 'auth/invalid-app-credential') {
         onError(capacitorMode
           ? 'Phone sign-in needs Firebase authorized domains configured for the mobile app. Use email or Google sign-in for now.'
-          : 'Phone sign-in needs reCAPTCHA authorized in the Firebase console for this domain.');
+          : 'Phone sign-in needs this domain added under Firebase Console → Authentication → Settings → Authorized domains.');
       }
       else onError('Could not send the code — please try again.');
+      // A failed attempt can leave the reCAPTCHA widget in a bad state (e.g.
+      // "already used" token) — drop it so the next Send/Resend tap builds a
+      // fresh verifier instead of silently repeating the same failure.
+      verifierRef.current?.clear();
+      verifierRef.current = null;
     } finally {
       setBusy(false);
     }

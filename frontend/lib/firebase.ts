@@ -23,3 +23,31 @@ export async function getFirebaseApp() {
   _app = getApps().length ? getApps()[0] : initializeApp(FIREBASE_CONFIG);
   return _app;
 }
+
+let _auth: import('firebase/auth').Auth | null = null;
+
+/**
+ * Lazily get the Auth instance with `debugErrorMap` installed, so
+ * `error.message` carries a human-readable description (e.g. "This domain is
+ * not authorized...") instead of the bare `Firebase: Error (auth/xxx).` that
+ * `getAuth()` alone produces. `initializeAuth` is the only way to opt into
+ * this — plain `getAuth(app)` always uses the near-empty prod error map.
+ *
+ * NOTE: error CODES (`err.code`) are reliable either way — callers should
+ * still branch on `.code`, not on this message text. This only makes the
+ * text better for logs/toasts that fall through to a generic case.
+ */
+export async function getFirebaseAuth() {
+  const app = await getFirebaseApp();
+  if (!app) return null;
+  if (_auth) return _auth;
+  const { initializeAuth, getAuth, debugErrorMap, browserLocalPersistence } = await import('firebase/auth');
+  try {
+    _auth = initializeAuth(app, { errorMap: debugErrorMap, persistence: browserLocalPersistence });
+  } catch {
+    // Already initialized elsewhere (e.g. Fast Refresh in dev) — fall back to
+    // the existing instance rather than throwing.
+    _auth = getAuth(app);
+  }
+  return _auth;
+}

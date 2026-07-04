@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@capgo/capacitor-native-biometric": "^6.0.4"
+  }
+}

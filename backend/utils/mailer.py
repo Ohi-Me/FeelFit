@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 import smtplib
 from email.mime.text import MIMEText
 
@@ -26,6 +27,17 @@ _BODY_TMPL = (
     "Your FeelFit verification code is: {code}\n\n"
     "This code expires in 10 minutes. If you didn't request this, you can ignore this email."
 )
+
+# Zero-setup sandbox sender — always a valid fallback even with no domain
+# verified in Resend. Used whenever RESEND_FROM is unset OR malformed, so a
+# bad/placeholder value in the environment degrades gracefully instead of
+# silently failing every signup.
+_RESEND_SANDBOX_FROM = "FeelFit <onboarding@resend.dev>"
+
+# Accepts "email@domain" or "Display Name <email@domain>" — the two formats
+# Resend's `from` field accepts. Deliberately permissive on the local-part;
+# this is a sanity check, not full RFC 5322 validation.
+_FROM_ADDR_RE = re.compile(r"^(?:[^<>@]+\s)?<?[^<>@\s]+@[^<>@\s]+\.[^<>@\s]+>?$")
 
 
 def resend_configured() -> bool:
@@ -40,11 +52,29 @@ def mailer_configured() -> bool:
     return resend_configured() or smtp_configured()
 
 
+def _resend_from_address() -> str:
+    """RESEND_FROM if it's a plausible email/`"Name <email>"` value, else the
+    zero-setup sandbox sender. Guards against a blank, truncated, or garbled
+    env var silently breaking every signup email (RESEND_FROM being *set* at
+    all — even to one stray character — stops `os.environ.get`'s default
+    from ever kicking in, so this check has to happen explicitly)."""
+    raw = os.environ.get("RESEND_FROM", "").strip()
+    if raw and _FROM_ADDR_RE.match(raw):
+        return raw
+    if raw:
+        logger.error(
+            f"RESEND_FROM={raw!r} doesn't look like a valid sender "
+            f"('email@domain' or 'Name <email@domain>') — falling back to the "
+            f"Resend sandbox sender. Fix RESEND_FROM in your environment."
+        )
+    return _RESEND_SANDBOX_FROM
+
+
 def _send_via_resend(to_email: str, code: str) -> bool:
     api_key = os.environ["RESEND_API_KEY"]
     # Resend's shared sandbox sender works with zero setup for testing; once you
     # verify your own domain in Resend, set RESEND_FROM to send as your brand.
-    from_addr = os.environ.get("RESEND_FROM", "FeelFit <onboarding@resend.dev>")
+    from_addr = _resend_from_address()
     try:
         r = httpx.post(
             "https://api.resend.com/emails",
